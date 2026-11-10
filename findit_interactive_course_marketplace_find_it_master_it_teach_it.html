@@ -1,0 +1,4723 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FindIT — Interactive Course Marketplace (Find it. Master it. Teach it.)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <style>
+/* ==========================================================================
+   FindIT Design System: Light Mode (Current Palette) & Night Mode (VS Code Dark + Bright Amber Yellow)
+   ========================================================================== */
+
+:root,
+[data-theme="light"] {
+  /* Core FindIT Brand Tokens (Light Mode — Preserved from current version) */
+  --fi-white: #FFFFFF;
+  --fi-indigo: #292866;
+  --fi-indigo-rgb: 41, 40, 102;
+  --fi-lavender: #C8C2E0;
+  --fi-lavender-rgb: 200, 194, 224;
+  --fi-mint: #97D0B1;
+  --fi-mint-rgb: 151, 208, 177;
+  --fi-forest: #406352;
+  --fi-forest-rgb: 64, 99, 82;
+  --fi-coral: #F05C4F;
+  --fi-coral-rgb: 240, 92, 79;
+  --fi-coral-dark: #C2392D;
+
+  /* Semantic Surface & Text Tokens */
+  --surface-bg: #F6F7FB;
+  --card-bg: #FFFFFF;
+  --card-elevated: #FFFFFF;
+  --sidebar-bg: #292866;
+  --sidebar-text: #FFFFFF;
+  --sidebar-muted: rgba(255, 255, 255, 0.72);
+  --sidebar-active-bg: #C8C2E0;
+  --sidebar-active-text: #292866;
+  --sidebar-border: rgba(255, 255, 255, 0.14);
+
+  --text-main: #292866;
+  --text-secondary: rgba(41, 40, 102, 0.74);
+  --text-muted: rgba(41, 40, 102, 0.56);
+  --border-color: rgba(41, 40, 102, 0.12);
+  --border-strong: rgba(41, 40, 102, 0.24);
+  --input-bg: #FFFFFF;
+
+  /* Secondary / Brand Accent Color (Blue/Indigo in Light Mode) */
+  --accent-primary: #292866;
+  --accent-primary-text: #FFFFFF;
+  --accent-secondary: #5465FF;
+  --accent-pill-bg: #6C7BFF;
+  --accent-pill-text: #FFFFFF;
+  --accent-soft: rgba(41, 40, 102, 0.08);
+  --accent-soft-text: #292866;
+  --accent-highlight: #97D0B1;
+
+  /* Like Button & Status Tokens (Green in Light Mode) */
+  --like-color: #16A34A;
+  --like-border: #22C55E;
+  --like-bg: rgba(34, 197, 94, 0.14);
+  --like-glow: 0 0 14px rgba(34, 197, 94, 0.65), 0 0 4px rgba(34, 197, 94, 0.45);
+  --like-tooltip-bg: #16A34A;
+  --like-tooltip-text: #FFFFFF;
+  --like-badge-bg: rgba(34, 197, 94, 0.25);
+  --like-badge-text: #4ADE80;
+
+  /* Stepik Activity Graph Colors (Blue glow in Light Mode) */
+  --heat-empty: #EAECEF;
+  --heat-lvl-1: #BFDBFE;
+  --heat-lvl-2: #60A5FA;
+  --heat-lvl-3: #2563EB;
+  --heat-lvl-4: #1D4ED8;
+  --heat-glow-1: 0 0 6px rgba(59, 130, 246, 0.35);
+  --heat-glow-2: 0 0 9px rgba(37, 99, 235, 0.55);
+  --heat-glow-3: 0 0 12px rgba(29, 78, 216, 0.75);
+  --heat-glow-4: 0 0 15px rgba(37, 99, 235, 0.95);
+
+  /* Skeleton Shimmer Colors */
+  --skel-base: #E4E6EB;
+  --skel-shine: rgba(255, 255, 255, 0.85);
+
+  /* Card Shadows */
+  --shadow-card: 0 2px 10px rgba(41, 40, 102, 0.06);
+  --shadow-card-hover: 0 14px 32px rgba(41, 40, 102, 0.16), 0 4px 12px rgba(41, 40, 102, 0.08);
+
+  /* Easing Curves (Emil Kowalski principles) */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+  --font-heading: "Sora", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ==========================================================================
+   Night Mode: VS Code Dark (#1E1E1E / #252526) + Warm Gold Yellow (#E2B714)
+   ========================================================================== */
+[data-theme="dark"] {
+  --surface-bg: #1E1E1E;
+  --card-bg: #252526;
+  --card-elevated: #2D2D30;
+  --sidebar-bg: #18181A;
+  --sidebar-text: #F3F4F6;
+  --sidebar-muted: #A1A1AA;
+  --sidebar-active-bg: #E2B714;
+  --sidebar-active-text: #111111;
+  --sidebar-border: rgba(255, 255, 255, 0.09);
+
+  --text-main: #F3F4F6;
+  --text-secondary: #D4D4D8;
+  --text-muted: #A1A1AA;
+  --border-color: rgba(255, 255, 255, 0.10);
+  --border-strong: rgba(226, 183, 20, 0.45);
+  --input-bg: #1E1E1E;
+
+  /* Secondary / Brand Accent Color -> Warm Muted Yellow (#E2B714) with Black Letters */
+  --accent-primary: #E2B714;
+  --accent-primary-text: #111111;
+  --accent-secondary: #E2B714;
+  --accent-pill-bg: #E2B714;
+  --accent-pill-text: #111111;
+  --accent-soft: #E2B714;
+  --accent-soft-text: #111111;
+  --accent-highlight: #E2B714;
+
+  /* Like Button & Status Tokens in Night Mode (Matches #E2B714 Yellow with Black Letters) */
+  --like-color: #E2B714;
+  --like-border: #E2B714;
+  --like-bg: rgba(226, 183, 20, 0.20);
+  --like-glow: 0 0 14px rgba(226, 183, 20, 0.55), 0 0 4px rgba(226, 183, 20, 0.35);
+  --like-tooltip-bg: #E2B714;
+  --like-tooltip-text: #111111;
+  --like-badge-bg: #E2B714;
+  --like-badge-text: #111111;
+
+  /* Stepik Activity Graph Colors (Soft #E2B714 Yellow glow in Night Mode) */
+  --heat-empty: #323236;
+  --heat-lvl-1: rgba(226, 183, 20, 0.32);
+  --heat-lvl-2: rgba(226, 183, 20, 0.55);
+  --heat-lvl-3: rgba(226, 183, 20, 0.78);
+  --heat-lvl-4: #E2B714;
+  --heat-glow-1: 0 0 5px rgba(226, 183, 20, 0.25);
+  --heat-glow-2: 0 0 7px rgba(226, 183, 20, 0.40);
+  --heat-glow-3: 0 0 10px rgba(226, 183, 20, 0.60);
+  --heat-glow-4: 0 0 13px rgba(226, 183, 20, 0.80);
+
+  /* Skeleton Shimmer Colors (Dark Mode) */
+  --skel-base: #323236;
+  --skel-shine: rgba(226, 183, 20, 0.16);
+
+  /* Card Shadows */
+  --shadow-card: 0 4px 14px rgba(0, 0, 0, 0.35);
+  --shadow-card-hover: 0 16px 36px rgba(0, 0, 0, 0.60), 0 0 0 1px rgba(226, 183, 20, 0.32);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-body);
+  background-color: var(--surface-bg);
+  color: var(--text-main);
+  line-height: 1.5;
+  overflow-x: hidden;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--text-main);
+  margin-top: 0;
+}
+
+.text-muted {
+  color: var(--text-muted) !important;
+}
+
+/* ==========================================================================
+   Point 13: Top Loading Line (Completes before switching pages)
+   ========================================================================== */
+.top-loading-bar-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3.5px;
+  z-index: 9999;
+  pointer-events: none;
+  background: transparent;
+}
+
+.top-loading-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent-secondary), var(--like-border), var(--accent-primary));
+  box-shadow: 0 0 12px var(--accent-secondary);
+  opacity: 0;
+  transition: width 0.28s var(--ease-out), opacity 0.18s ease;
+}
+
+/* ==========================================================================
+   Point 1: Full-Screen Login / Onboarding Gate (Student vs. Teacher)
+   ========================================================================== */
+.login-gate-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  background: var(--surface-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.login-gate-overlay.is-hidden {
+  display: none !important;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 620px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 22px;
+  box-shadow: var(--shadow-card-hover);
+  padding: 28px 32px;
+  margin: auto;
+}
+
+.role-switch-track {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--surface-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 4px;
+  margin-bottom: 22px;
+}
+
+.role-switch-thumb {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc(50% - 4px);
+  background: var(--accent-primary);
+  border-radius: 10px;
+  transition: transform 0.3s var(--ease-out);
+  z-index: 1;
+}
+
+.role-switch-track[data-role="teacher"] .role-switch-thumb {
+  transform: translateX(100%);
+}
+
+.role-switch-btn {
+  position: relative;
+  z-index: 2;
+  border: 0;
+  background: transparent;
+  padding: 10px 14px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.role-switch-btn.is-active {
+  color: var(--accent-primary-text);
+}
+
+/* ==========================================================================
+   Point 9: Smooth Language Slider with Gliding Cube
+   ========================================================================== */
+.lang-slider {
+  position: relative;
+  display: inline-grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 10px;
+  padding: 3px;
+  width: 138px;
+  user-select: none;
+}
+
+.lang-slider--surface {
+  background: var(--surface-bg);
+  border-color: var(--border-color);
+}
+
+.lang-slider__cube {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 3px;
+  width: calc((100% - 6px) / 3);
+  background: var(--sidebar-active-bg);
+  border-radius: 7px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.22);
+  transition: transform 0.32s var(--ease-out);
+  z-index: 1;
+}
+
+.lang-slider[data-lang="uz"] .lang-slider__cube { transform: translateX(0%); }
+.lang-slider[data-lang="ru"] .lang-slider__cube { transform: translateX(100%); }
+.lang-slider[data-lang="en"] .lang-slider__cube { transform: translateX(200%); }
+
+.lang-slider__btn {
+  position: relative;
+  z-index: 2;
+  border: 0;
+  background: transparent;
+  padding: 4px 0;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--sidebar-muted);
+  cursor: pointer;
+  text-align: center;
+  transition: color 0.2s ease;
+}
+
+.lang-slider--surface .lang-slider__btn {
+  color: var(--text-secondary);
+}
+
+.lang-slider__btn.is-active {
+  color: var(--sidebar-active-text) !important;
+}
+
+/* ==========================================================================
+   Layout Shell: Left Sidebar + Folder Explorer Tree + Main Content + Right Panel
+   ========================================================================== */
+.dashboard-wrapper {
+  display: flex;
+  min-height: 100vh;
+  padding-left: 248px;
+}
+
+/* Completely static fixed left sidebar that never scrolls when the page scrolls */
+.sidebar {
+  width: 248px;
+  flex-shrink: 0;
+  background: var(--sidebar-bg);
+  color: var(--sidebar-text);
+  display: flex;
+  flex-direction: column;
+  padding: 18px 14px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  height: 100vh;
+  overflow-y: auto;
+  border-right: 1px solid var(--sidebar-border);
+  z-index: 1030;
+}
+
+@media (max-width: 991.98px) {
+  .dashboard-wrapper {
+    padding-left: 0;
+  }
+  .sidebar {
+    transform: translateX(-105%);
+    transition: transform 0.28s var(--ease-drawer);
+  }
+  .sidebar.is-open {
+    transform: translateX(0);
+  }
+}
+
+.sidebar__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding: 0 4px;
+}
+
+/* Point 10: Top-left logotype clicks to Main Menu */
+.sidebar__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--sidebar-text);
+  font-weight: 800;
+  font-size: 1.15rem;
+  cursor: pointer;
+  transition: transform 0.15s var(--ease-out);
+}
+
+.sidebar__brand:hover {
+  color: var(--sidebar-text);
+  opacity: 0.92;
+}
+
+.sidebar__brand:active {
+  transform: scale(0.97);
+}
+
+.sidebar__logo-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--sidebar-active-bg);
+  color: var(--sidebar-active-text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1rem;
+}
+
+.sidebar .nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--sidebar-muted);
+  padding: 10px 12px;
+  border-radius: 11px;
+  font-weight: 600;
+  font-size: 0.86rem;
+  margin-bottom: 4px;
+  text-decoration: none;
+  transition: background-color 0.18s ease, color 0.18s ease, transform 0.12s ease;
+}
+
+.sidebar .nav-link:hover {
+  color: var(--sidebar-text);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.sidebar .nav-link.active {
+  background: var(--sidebar-active-bg);
+  color: var(--sidebar-active-text) !important;
+  font-weight: 700;
+}
+
+.sidebar .nav-link.active span,
+.sidebar .nav-link.active svg {
+  color: var(--sidebar-active-text) !important;
+}
+
+.sidebar .nav-link.active .badge {
+  background: rgba(0, 0, 0, 0.18) !important;
+  color: var(--sidebar-active-text) !important;
+}
+
+.nav-link__inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Point 4: Folder-Explorer Sub-themes under Courses */
+.folder-tree {
+  margin: 2px 0 8px 18px;
+  padding-left: 12px;
+  border-left: 1.5px dashed rgba(255, 255, 255, 0.25);
+  display: none;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.folder-tree.is-expanded {
+  display: flex;
+}
+
+.folder-tree__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--sidebar-muted);
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  position: relative;
+}
+
+.folder-tree__item::before {
+  content: "";
+  position: absolute;
+  left: -12px;
+  top: 50%;
+  width: 8px;
+  height: 1.5px;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.folder-tree__item:hover {
+  background: rgba(255, 255, 255, 0.10);
+  color: var(--sidebar-text);
+}
+
+.folder-tree__item.is-active {
+  background: var(--sidebar-active-bg);
+  color: var(--sidebar-active-text) !important;
+  font-weight: 700;
+}
+
+.folder-chevron {
+  transition: transform 0.22s var(--ease-out);
+}
+
+.folder-chevron.is-rotated {
+  transform: rotate(90deg);
+}
+
+/* Point 11: Settings in Bottom-Left Corner */
+.sidebar__footer {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--sidebar-border);
+}
+
+/* ==========================================================================
+   Point 15: Stepik-Style Course Boxes (Image 3) + Green Glowing Like Button
+   ========================================================================== */
+.stepik-course-card {
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 20px 22px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 0.26s var(--ease-out), transform 0.26s var(--ease-out), border-color 0.26s ease;
+}
+
+.stepik-course-card:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-3px);
+  border-color: var(--border-strong);
+}
+
+.stepik-course-card.is-best-deal {
+  border: 2px solid var(--accent-secondary);
+}
+
+.best-deal-ribbon {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--accent-pill-bg);
+  color: var(--accent-pill-text);
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 10px;
+  width: fit-content;
+}
+
+.stepik-card__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.stepik-card__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.stepik-card__title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.32;
+  margin-bottom: 6px;
+}
+
+.stepik-card__title a {
+  color: var(--text-main);
+  text-decoration: none;
+}
+
+.stepik-card__title a:hover {
+  color: var(--accent-secondary);
+}
+
+.stepik-card__author {
+  font-size: 0.83rem;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.stepik-card__honors {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+/* Point 3 Clarification: Directly under the teacher name, show past student results + counts & hours */
+.stepik-card__meta-stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+.stepik-card__meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.stepik-card__student-result {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent-soft-text);
+  background: var(--accent-soft);
+  padding: 4px 10px;
+  border-radius: 7px;
+  margin-top: 6px;
+}
+
+.stepik-card__thumb-wrap {
+  position: relative;
+  width: 84px;
+  height: 84px;
+  flex-shrink: 0;
+  border-radius: 16px;
+  background: var(--surface-bg);
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+/* Point 15: Like button on top-right corner, glows green on hover and shows "I like it" tooltip */
+.stepik-like-btn {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.10);
+  transition: all 0.2s var(--ease-out);
+  z-index: 4;
+}
+
+.stepik-like-btn:hover {
+  color: var(--like-color);
+  border-color: var(--like-border);
+  background: var(--like-bg);
+  box-shadow: var(--like-glow);
+  transform: scale(1.08);
+}
+
+.stepik-like-btn.is-liked {
+  color: var(--like-color);
+  border-color: var(--like-border);
+  background: var(--like-bg);
+}
+
+.stepik-like-btn__tooltip {
+  position: absolute;
+  bottom: calc(100% + 7px);
+  right: 50%;
+  transform: translateX(50%) translateY(4px);
+  background: var(--like-tooltip-bg);
+  color: var(--like-tooltip-text);
+  font-size: 0.68rem;
+  font-weight: 800;
+  white-space: nowrap;
+  padding: 3px 9px;
+  border-radius: 6px;
+  pointer-events: none;
+  opacity: 0;
+  box-shadow: var(--like-glow);
+  transition: opacity 0.18s var(--ease-out), transform 0.18s var(--ease-out);
+}
+
+.stepik-like-btn:hover .stepik-like-btn__tooltip {
+  opacity: 1;
+  transform: translateX(50%) translateY(0);
+}
+
+.stepik-card__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 12px;
+  margin-top: 8px;
+  border-top: 1px solid var(--border-color);
+}
+
+.stepik-card__price-wrap {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.stepik-card__price {
+  font-size: 1.08rem;
+  font-weight: 800;
+  color: var(--accent-secondary);
+}
+
+.stepik-card__stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 0.82rem;
+  color: #F59E0B;
+  font-weight: 700;
+}
+
+.stepik-card__module-pill {
+  background: var(--accent-pill-bg);
+  color: var(--accent-pill-text);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 11px;
+  border-radius: 8px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   Point 14: Stepik Skeleton Card Template with Glancing Shimmer Effect (Image 2)
+   ========================================================================== */
+.stepik-skeleton-card {
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 22px;
+  height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+/* Diagonal Glancing Shimmer Sweep */
+.stepik-skeleton-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 90%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent 20%,
+    var(--skel-shine) 50%,
+    transparent 80%
+  );
+  animation: glancingSweep 1.25s infinite var(--ease-in-out);
+  pointer-events: none;
+}
+
+@keyframes glancingSweep {
+  0% { left: -120%; }
+  100% { left: 140%; }
+}
+
+.skel-bar {
+  background: var(--skel-base);
+  border-radius: 8px;
+}
+
+.skel-thumb {
+  width: 82px;
+  height: 82px;
+  border-radius: 14px;
+  background: var(--skel-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   Point 12: Elastic Overscroll / Push-at-End Physics for Course Lists
+   ========================================================================== */
+.elastic-course-list {
+  will-change: transform;
+  transition: transform 0.42s var(--ease-out);
+}
+
+.elastic-boundary-hint {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  padding: 10px 0 4px;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.elastic-boundary-hint.is-visible {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   Point 5 & Image 1: Stepik-Style 52-Week Activity Heatmap
+   ========================================================================== */
+.stepik-activity-box {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 20px 22px;
+  box-shadow: var(--shadow-card);
+}
+
+.stepik-heatmap-scroll {
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+
+.stepik-heatmap-layout {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  width: 100%;
+}
+
+.stepik-weekdays-col {
+  display: grid;
+  grid-template-rows: repeat(7, 1fr);
+  gap: 4px;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  padding-right: 4px;
+  align-items: center;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.stepik-heatmap-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--heatmap-weeks, 78), minmax(11px, 1fr));
+  grid-template-rows: repeat(7, minmax(12px, 1fr));
+  grid-auto-flow: column;
+  gap: 4px;
+  width: 100%;
+  min-width: 860px;
+  flex-grow: 1;
+}
+
+.stepik-heat-cell {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  min-width: 11px;
+  min-height: 12px;
+  border-radius: 3px;
+  background: var(--heat-empty);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.stepik-heat-cell:hover {
+  transform: scale(1.25);
+  z-index: 2;
+}
+
+.stepik-heat-cell[data-level="1"] {
+  background: var(--heat-lvl-1);
+  box-shadow: var(--heat-glow-1);
+}
+
+.stepik-heat-cell[data-level="2"] {
+  background: var(--heat-lvl-2);
+  box-shadow: var(--heat-glow-2);
+}
+
+.stepik-heat-cell[data-level="3"] {
+  background: var(--heat-lvl-3);
+  box-shadow: var(--heat-glow-3);
+}
+
+.stepik-heat-cell[data-level="4"] {
+  background: var(--heat-lvl-4);
+  box-shadow: var(--heat-glow-4);
+}
+
+/* Exact Red Square Border for Today as in Image 1 */
+.stepik-heat-cell.is-today {
+  outline: 2px solid #EF4444;
+  outline-offset: 0px;
+}
+
+.stepik-months-row {
+  display: grid;
+  grid-template-columns: repeat(var(--heatmap-months, 18), 1fr);
+  width: 100%;
+  min-width: 860px;
+  padding-left: 38px;
+  margin-top: 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+/* Compact 16-Week Activity Calendar for Static Right-Hand Profile Sidebar on Main Page */
+.mini-heatmap-grid {
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  grid-template-rows: repeat(7, 10px);
+  grid-auto-flow: column;
+  gap: 3px;
+  width: 100%;
+}
+
+.mini-heat-cell {
+  width: 100%;
+  height: 10px;
+  border-radius: 2px;
+  background: var(--heat-empty);
+  cursor: pointer;
+  transition: transform 0.12s ease, background-color 0.15s ease;
+}
+
+.mini-heat-cell:hover {
+  transform: scale(1.22);
+  z-index: 2;
+}
+
+.mini-heat-cell[data-level="1"] { background: var(--heat-lvl-1); box-shadow: var(--heat-glow-1); }
+.mini-heat-cell[data-level="2"] { background: var(--heat-lvl-2); box-shadow: var(--heat-glow-2); }
+.mini-heat-cell[data-level="3"] { background: var(--heat-lvl-3); box-shadow: var(--heat-glow-3); }
+.mini-heat-cell[data-level="4"] { background: var(--heat-lvl-4); box-shadow: var(--heat-glow-4); }
+.mini-heat-cell.is-today { outline: 1.5px solid #EF4444; }
+
+/* ==========================================================================
+   Search Bar, Filter Chips, Profile Panel & Modals/Drawers
+   ========================================================================== */
+.search-bar-wrap {
+  position: relative;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.search-bar-wrap .input-group {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+.search-bar-wrap .input-group-text {
+  background: transparent;
+  border: 0;
+  color: var(--text-muted);
+}
+
+.search-bar-wrap .form-control {
+  background: transparent;
+  border: 0;
+  color: var(--text-main);
+  font-size: 0.9rem;
+  padding: 11px 14px;
+}
+
+.search-bar-wrap .form-control:focus {
+  box-shadow: none;
+}
+
+.search-bar-wrap .form-control::placeholder {
+  color: var(--text-muted);
+}
+
+.profile-panel {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 22px 20px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+@media (min-width: 992px) {
+  .main-menu-with-static-profile {
+    padding-right: 324px;
+  }
+
+  .profile-panel--static-right,
+  .stepik-skeleton-profile--static-right {
+    position: fixed !important;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 316px;
+    height: 100vh !important;
+    min-height: 100vh !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    border-top: 0 !important;
+    border-right: 0 !important;
+    border-bottom: 0 !important;
+    border-left: 1px solid var(--border-color) !important;
+    padding: 24px 20px !important;
+    z-index: 950;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-y: auto;
+  }
+}
+
+.avatar-circle {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  color: var(--accent-primary-text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.35rem;
+}
+
+.card {
+  background: var(--card-bg);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  border-radius: 18px;
+  box-shadow: var(--shadow-card);
+}
+
+.form-control, .form-select {
+  background-color: var(--input-bg);
+  color: var(--text-main);
+  border-color: var(--border-color);
+}
+
+.form-control:focus, .form-select:focus {
+  background-color: var(--input-bg);
+  color: var(--text-main);
+  border-color: var(--accent-secondary);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.btn-primary {
+  background-color: var(--accent-primary) !important;
+  border-color: var(--accent-primary) !important;
+  color: var(--accent-primary-text) !important;
+  font-weight: 700;
+}
+
+.btn-outline-primary {
+  color: var(--accent-secondary) !important;
+  border-color: var(--accent-secondary) !important;
+  background: transparent !important;
+  font-weight: 600;
+}
+
+.btn-outline-primary:hover {
+  background: var(--accent-soft) !important;
+}
+
+.filter-chip {
+  border: 1px solid var(--border-color);
+  background: var(--card-bg);
+  color: var(--text-secondary);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.filter-chip.is-active {
+  background: var(--accent-primary);
+  color: var(--accent-primary-text);
+  border-color: var(--accent-primary);
+}
+
+/* Mobile Topbar & Bottom Nav */
+.mobile-topbar {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: var(--sidebar-bg);
+  color: var(--sidebar-text);
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+}
+
+@media (max-width: 991.98px) {
+  .mobile-topbar {
+    display: flex;
+  }
+}
+
+.sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1025;
+  display: none;
+}
+
+.sidebar-backdrop.is-open {
+  display: block;
+}
+
+.offcanvas {
+  background-color: var(--card-bg);
+  color: var(--text-main);
+}
+
+/* Profile Panel Skeleton Template with Glancing Shimmer */
+.stepik-skeleton-profile {
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 22px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  height: 100%;
+  min-height: calc(100vh - 48px);
+  display: flex;
+  flex-direction: column;
+}
+
+.stepik-skeleton-profile::after,
+.stepik-skeleton-topbar::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 90%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent 20%,
+    var(--skel-shine) 50%,
+    transparent 80%
+  );
+  animation: glancingSweep 1.25s infinite var(--ease-in-out);
+  pointer-events: none;
+}
+
+.stepik-skeleton-topbar {
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 14px 18px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+/* Ensure Bootstrap Tables, Switches, and Close Buttons adapt to Night Mode */
+.table {
+  --bs-table-bg: transparent;
+  --bs-table-color: var(--text-main);
+  --bs-table-border-color: var(--border-color);
+  color: var(--text-main) !important;
+}
+
+.table th,
+.table td {
+  background-color: transparent !important;
+  color: var(--text-main) !important;
+  border-bottom-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .btn-close {
+  filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+[data-theme="dark"] .form-check-input:checked {
+  background-color: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:active {
+  background-color: var(--accent-primary) !important;
+  border-color: var(--accent-primary) !important;
+  color: var(--accent-primary-text) !important;
+}
+  </style>
+</head>
+<body>
+  <!-- Point 13: Top Loading Progress Line -->
+  <div class="top-loading-bar-wrap" aria-hidden="true">
+    <div class="top-loading-bar" id="top-loading-bar"></div>
+  </div>
+
+  <!-- Point 1: Login / Registration Gate (Student vs. Teacher) -->
+  <div class="login-gate-overlay" id="login-gate-overlay" role="dialog" aria-modal="true" aria-labelledby="login-gate-title">
+    <div class="login-card">
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+        <div class="d-flex align-items-center gap-2">
+          <span class="sidebar__logo-circle">F</span>
+          <div>
+            <h1 class="h5 fw-bold mb-0" id="login-gate-title" data-i18n="auth.welcome">FindIT platformasiga xush kelibsiz</h1>
+            <div class="small text-muted" data-i18n="auth.choose_role">Davom etish uchun o'quvchi yoki o'qituvchi sifatida kiring</div>
+          </div>
+        </div>
+        <div class="lang-slider lang-slider--surface" data-lang="uz" role="group" aria-label="Language selector">
+          <div class="lang-slider__cube"></div>
+          <button type="button" class="lang-slider__btn is-active js-lang-btn" data-lang="uz">UZ</button>
+          <button type="button" class="lang-slider__btn js-lang-btn" data-lang="ru">RU</button>
+          <button type="button" class="lang-slider__btn js-lang-btn" data-lang="en">EN</button>
+        </div>
+      </div>
+
+      <!-- Student / Teacher Sliding Switch -->
+      <div class="role-switch-track" id="login-role-track" data-role="student">
+        <div class="role-switch-thumb"></div>
+        <button type="button" class="role-switch-btn is-active" id="role-btn-student" data-role="student" data-i18n="auth.role_student">🎓 Student (O'quvchi)</button>
+        <button type="button" class="role-switch-btn" id="role-btn-teacher" data-role="teacher" data-i18n="auth.role_teacher">👨‍🏫 Teacher (O'qituvchi)</button>
+      </div>
+
+      <form id="login-gate-form">
+        <input type="hidden" id="login-role-input" name="role" value="student">
+        <div class="row g-3">
+          <div class="col-12 col-sm-6">
+            <label class="form-label small fw-bold" for="lg-email" data-i18n="auth.email">Email manzil</label>
+            <input type="email" id="lg-email" name="email" class="form-control" value="baxbergen2010@gmail.com" required>
+          </div>
+          <div class="col-12 col-sm-6">
+            <label class="form-label small fw-bold" for="lg-username" data-i18n="auth.username">Foydalanuvchi nomi (Username)</label>
+            <input type="text" id="lg-username" name="username" class="form-control" value="Baqbergen Xojanbergenov" required>
+          </div>
+          <div class="col-12 col-sm-6">
+            <label class="form-label small fw-bold" for="lg-password" data-i18n="auth.password">Parol</label>
+            <input type="password" id="lg-password" name="password" class="form-control" value="findit2026" required>
+          </div>
+
+          <!-- Student-Specific Field: Major -->
+          <div class="col-12 col-sm-6" id="student-major-field">
+            <label class="form-label small fw-bold" for="lg-major" data-i18n="auth.major">Yo'nalishingiz (Major)</label>
+            <input type="text" id="lg-major" name="major" class="form-control" value="Computer Science & Engineering" placeholder="e.g. Software Engineering, Economics, Medicine">
+          </div>
+        </div>
+
+        <!-- Teacher-Specific Fields (Hidden when Student is selected) -->
+        <div id="teacher-extra-fields" class="row g-3 mt-1 d-none">
+          <div class="col-12 col-sm-6">
+            <label class="form-label small fw-bold" for="lg-subject" data-i18n="auth.subject">O'qitadigan fan va sertifikat</label>
+            <input type="text" id="lg-subject" name="subjectCert" class="form-control" value="IELTS Academic 8.0+ & SAT Math" placeholder="e.g. IELTS Academic, Milliy Sertifikat Matematika">
+          </div>
+          <div class="col-12 col-sm-6">
+            <label class="form-label small fw-bold" for="lg-honors" data-i18n="auth.honors">Yutuq va diplomlaringiz (Honors)</label>
+            <input type="text" id="lg-honors" name="honors" class="form-control" value="IELTS 8.5 · CELTA Pass A · 1-o'rin Olimpiada" placeholder="e.g. IELTS 8.5, Milliy Sertifikat A+ (98%)">
+          </div>
+          <div class="col-12">
+            <label class="form-label small fw-bold" for="lg-past-students" data-i18n="auth.past_students">Avvalgi o'quvchilaringiz natijalari (Kurs kartochkasida ko'rinadi)</label>
+            <input type="text" id="lg-past-students" name="pastStudentsResult" class="form-control" value="94% o'quvchilar IELTS 7.5+ va A+ natija qayd etdi (2026)" placeholder="e.g. 94% scored Band 7.5+ / A+ in 2026">
+          </div>
+          <div class="col-12 col-sm-6">
+            <label class="form-label small fw-bold" for="lg-card" data-i18n="auth.card">To'lov qabul qilish kartasi (Uzcard / Humo)</label>
+            <input type="text" id="lg-card" name="paymentCard" class="form-control" value="8600 4921 •••• 7814" placeholder="8600 •••• •••• ••••">
+          </div>
+          <div class="col-12 col-sm-6">
+            <label class="form-label small fw-bold" for="lg-price" data-i18n="auth.course_price">Kurs narxi (so'm)</label>
+            <input type="number" id="lg-price" name="coursePrice" class="form-control" value="420000" min="50000" step="10000">
+          </div>
+        </div>
+
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mt-4 pt-3 border-top">
+          <div class="small text-muted" data-i18n="auth.hint">Ma'lumotlarni to'ldirib asosiy menyuga o'ting</div>
+          <button type="submit" class="btn btn-primary rounded-pill px-4 py-2" id="login-submit-btn" data-i18n="auth.submit">Platformaga kirish →</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Mobile Topbar -->
+  <header class="mobile-topbar">
+    <a href="#/" class="sidebar__brand js-logo-main" aria-label="FindIT Main Menu">
+      <span class="sidebar__logo-circle">F</span>
+      <span>FindIT</span>
+    </a>
+    <div class="d-flex align-items-center gap-2">
+      <div class="lang-slider" data-lang="uz" role="group" aria-label="Language switcher">
+        <div class="lang-slider__cube"></div>
+        <button type="button" class="lang-slider__btn is-active js-lang-btn" data-lang="uz">UZ</button>
+        <button type="button" class="lang-slider__btn js-lang-btn" data-lang="ru">RU</button>
+        <button type="button" class="lang-slider__btn js-lang-btn" data-lang="en">EN</button>
+      </div>
+      <button type="button" class="btn btn-sm text-white border-0" id="mobile-menu-toggle" aria-label="Open menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+  <div class="sidebar-backdrop" id="offcanvas-backdrop"></div>
+
+  <div class="dashboard-wrapper">
+    <!-- Left Sidebar (Point 3, 4, 9, 10, 11, 16) -->
+    <aside class="sidebar" id="app-sidebar" aria-label="Sidebar Navigation">
+      <div class="sidebar__header">
+        <!-- Point 10: Logotype on top-left corner transfers to Main Menu -->
+        <a href="#/" class="sidebar__brand js-logo-main" title="Go to Main Menu">
+          <span class="sidebar__logo-circle">F</span>
+          <span>FindIT</span>
+        </a>
+        <button type="button" class="btn btn-sm text-white d-lg-none border-0" id="sidebar-close-btn" aria-label="Close sidebar">✕</button>
+      </div>
+
+      <!-- Point 9: Smooth Language Slider with Gliding Cube -->
+      <div class="mb-3 px-1">
+        <div class="lang-slider w-100" data-lang="uz" role="group" aria-label="Language slider">
+          <div class="lang-slider__cube"></div>
+          <button type="button" class="lang-slider__btn is-active js-lang-btn" data-lang="uz">UZ</button>
+          <button type="button" class="lang-slider__btn js-lang-btn" data-lang="ru">RU</button>
+          <button type="button" class="lang-slider__btn js-lang-btn" data-lang="en">EN</button>
+        </div>
+      </div>
+
+      <!-- Point 3, 4, 16: Main menu, Courses (with folder-explorer sub-themes), Liked courses, Studio (Teacher only), Profile -->
+      <ul class="nav flex-column" id="sidebar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" href="#/" data-nav="dashboard">
+            <span class="nav-link__inner">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <rect x="2" y="2" width="5" height="5" rx="1.2"/>
+                <rect x="9" y="2" width="5" height="5" rx="1.2" opacity="0.65"/>
+                <rect x="2" y="9" width="5" height="5" rx="1.2" opacity="0.65"/>
+                <rect x="9" y="9" width="5" height="5" rx="1.2"/>
+              </svg>
+              <span data-i18n="nav.main_menu">Main menu</span>
+            </span>
+          </a>
+        </li>
+
+        <!-- Point 4: Courses option with Folder-Explorer sub-themes for applied courses -->
+        <li class="nav-item">
+          <a class="nav-link" href="#/courses" id="nav-courses-toggle" data-nav="courses">
+            <span class="nav-link__inner">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M1.5 3A1.5 1.5 0 0 1 3 1.5h3.293a1 1 0 0 1 .707.293L8.207 3H13a1.5 1.5 0 0 1 1.5 1.5v8A1.5 1.5 0 0 1 13 14H3a1.5 1.5 0 0 1-1.5-1.5V3z"/>
+              </svg>
+              <span data-i18n="nav.courses">Courses</span>
+            </span>
+            <span class="d-inline-flex align-items-center gap-1">
+              <span class="badge rounded-pill" id="applied-courses-count" style="background:rgba(255,255,255,0.16); color:#fff; font-size:0.68rem;">0</span>
+              <svg class="folder-chevron is-rotated" id="courses-folder-chevron" width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 4 10 8 6 12"/>
+              </svg>
+            </span>
+          </a>
+          <div class="folder-tree is-expanded" id="sidebar-courses-folder" role="group" aria-label="Applied courses sub-themes"></div>
+        </li>
+
+        <!-- Point 16: Liked courses option in bar -->
+        <li class="nav-item">
+          <a class="nav-link" href="#/liked" data-nav="liked">
+            <span class="nav-link__inner">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M8 14s-6-3.8-6-8.2A3.3 3.3 0 0 1 5.3 2.5c1.1 0 2.1.6 2.7 1.5.6-.9 1.6-1.5 2.7-1.5A3.3 3.3 0 0 1 14 5.8C14 10.2 8 14 8 14z"/>
+              </svg>
+              <span data-i18n="nav.liked">Liked courses</span>
+            </span>
+            <span class="badge rounded-pill" id="liked-courses-count" style="background:var(--like-badge-bg); color:var(--like-badge-text); font-size:0.68rem;">0</span>
+          </a>
+        </li>
+
+        <!-- Point 3 & 6: Studio — visible only if user applied as a teacher -->
+        <li class="nav-item" id="sidebar-studio-item">
+          <a class="nav-link" href="#/studio" data-nav="studio">
+            <span class="nav-link__inner">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <rect x="2" y="8" width="3" height="6" rx="1"/>
+                <rect x="6.5" y="5" width="3" height="9" rx="1" opacity="0.8"/>
+                <rect x="11" y="2" width="3" height="12" rx="1" opacity="0.6"/>
+              </svg>
+              <span data-i18n="nav.studio">Studio</span>
+            </span>
+          </a>
+        </li>
+
+        <!-- Point 3 & 5: Profile -->
+        <li class="nav-item">
+          <a class="nav-link" href="#/profile" data-nav="profile">
+            <span class="nav-link__inner">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <circle cx="8" cy="5" r="3"/>
+                <path d="M2.5 14c0-3 2.5-5 5.5-5s5.5 2 5.5 5"/>
+              </svg>
+              <span data-i18n="nav.profile">Profile</span>
+            </span>
+          </a>
+        </li>
+      </ul>
+
+      <!-- Point 11: Settings in Bottom-Left Corner -->
+      <div class="sidebar__footer">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" href="#/settings" data-nav="settings" id="sidebar-settings-btn">
+              <span class="nav-link__inner">
+                <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor">
+                  <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
+                  <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319z"/>
+                </svg>
+                <span data-i18n="nav.settings">Settings</span>
+              </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <button type="button" class="nav-link w-100 border-0 bg-transparent text-start" id="reopen-login-gate-btn">
+              <span class="nav-link__inner">
+                <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor">
+                  <path d="M6 2a1 1 0 0 0-1 1v2h1V3h7v10H6v-2H5v2a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H6z"/>
+                  <path d="M1.5 8l3-3v2h5v2h-5v2l-3-3z"/>
+                </svg>
+                <span data-i18n="nav.switch_user">Login / Switch Role</span>
+              </span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Main Dynamic View Area -->
+    <main class="flex-grow-1 p-3 p-lg-4" id="dashboard-top" tabindex="-1"></main>
+  </div>
+
+  <!-- One-Click Demo Checkout / Apply Offcanvas Drawer -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="checkout-offcanvas" aria-labelledby="checkout-offcanvas-label" aria-hidden="true" style="visibility:hidden;">
+    <div class="offcanvas-header border-bottom">
+      <h2 class="offcanvas-title h6 fw-bold" id="checkout-offcanvas-label" data-i18n="checkout.title">Kursga yozilish (Apply / Checkout)</h2>
+      <button type="button" class="btn-close js-close-offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body" id="checkout-offcanvas-body"></div>
+  </div>
+
+  <!-- Status Toast Notification -->
+  <div id="status-toast" role="status" aria-live="polite" class="position-fixed bottom-0 end-0 m-3 px-3 py-2 rounded-3 bg-dark text-white small shadow d-none" style="z-index: 4000;"></div>
+<script>
+/* ==========================================================================
+   FindIT Localization & Currency Formatting (UZ / RU / EN)
+   ========================================================================== */
+(function (global) {
+  "use strict";
+
+  var FindIt = (global.FindIt = global.FindIt || {});
+  var DEFAULT_LANG = "uz";
+  var STORAGE_KEY = "findit:v3:lang";
+
+  var DICT = {
+    uz: {
+      "auth.welcome": "FindIT platformasiga xush kelibsiz",
+      "auth.choose_role": "Davom etish uchun o'quvchi yoki o'qituvchi sifatida kiring",
+      "auth.role_student": "🎓 Student (O'quvchi)",
+      "auth.role_teacher": "👨‍🏫 Teacher (O'qituvchi)",
+      "auth.email": "Email manzil",
+      "auth.username": "Foydalanuvchi nomi (Username)",
+      "auth.password": "Parol",
+      "auth.major": "Yo'nalishingiz (Major)",
+      "auth.subject": "O'qitadigan fan va sertifikat",
+      "auth.honors": "Yutuq va diplomlaringiz (Honors)",
+      "auth.past_students": "Avvalgi o'quvchilaringiz natijalari (Kartochkada ko'rinadi)",
+      "auth.card": "To'lov qabul qilish kartasi (Uzcard / Humo)",
+      "auth.course_price": "Kurs narxi (so'm)",
+      "auth.hint": "Ma'lumotlarni to'ldirib asosiy menyuga o'ting",
+      "auth.submit": "Platformaga kirish →",
+
+      "nav.main_menu": "Asosiy menyu",
+      "nav.courses": "Kurslarim",
+      "nav.liked": "Yoqtirilgan kurslar",
+      "nav.studio": "Studio",
+      "nav.profile": "Profil",
+      "nav.settings": "Sozlamalar",
+      "nav.switch_user": "Kirish / Rolni almashtirish",
+
+      "search.placeholder": "Kurs nomi, o'qituvchi, sertifikat (IELTS, SAT, Milliy Sertifikat) bo'yicha qidiring...",
+      "search.cat_all": "Barcha yo'nalishlar",
+      "search.price_all": "Barcha narxlar",
+      "search.rate_all": "Barcha reytinglar",
+      "search.best_deal": "★ ENG FOYDALI TAKLIF · TAVSIYA ETILADI",
+      "search.popular_title": "So'nggi ommabop kurslar",
+      "search.results_count": "ta kurs topildi",
+      "search.overscroll_end": "Ro'yxat oxiriga yetdingiz — barcha kurslar ko'rsatildi",
+
+      "card.i_like_it": "I like it",
+      "card.modules": "kurs",
+      "card.apply_btn": "Kursga yozilish",
+      "card.continue_btn": "Darsni ochish",
+
+      "profile.right_title": "Sizning profilingiz",
+      "profile.courses_stat": "Yozilgan kurslar",
+      "profile.certs_stat": "Sertifikatlar",
+      "profile.activeness": "Faollik darajasi",
+      "profile.year_activity": "Oxirgi yildagi faollik (Активность за последний год)",
+      "profile.next_day_utc": "Следующий день в 00:00 UTC",
+      "profile.log_hours": "Bugungi dars soatini qo'shish:",
+      "profile.earned_certs": "Qo'lga kiritilgan sertifikatlar",
+
+      "studio.title": "O'qituvchi Studio Paneli",
+      "studio.activeness": "Kurs faolligi",
+      "studio.profit": "Sof foyda (Daromad)",
+      "studio.reviews": "O'quvchilar fikrlari va sharhlari",
+
+      "settings.title": "Platforma sozlamalari",
+      "settings.theme": "Rang mavzusi (Light / Night Mode)",
+      "settings.notifications": "Bildirishnomalar (Notifications)",
+      "settings.video": "Video ijro sozlamalari (Video Playback)",
+      "settings.account": "Hisob va Rolni boshqarish (Student / Teacher)",
+      "checkout.title": "Kursga yozilish (Demo To'lov)"
+    },
+    ru: {
+      "auth.welcome": "Добро пожаловать в FindIT",
+      "auth.choose_role": "Войдите как студент или преподаватель, чтобы продолжить",
+      "auth.role_student": "🎓 Студент (Student)",
+      "auth.role_teacher": "👨‍🏫 Преподаватель (Teacher)",
+      "auth.email": "Электронная почта (Email)",
+      "auth.username": "Имя пользователя (Username)",
+      "auth.password": "Пароль",
+      "auth.major": "Специальность (Major)",
+      "auth.subject": "Предмет и сертификат обучения",
+      "auth.honors": "Ваши достижения и дипломы (Honors)",
+      "auth.past_students": "Результаты прошлых учеников (На карточке курса)",
+      "auth.card": "Карта для выплат (Uzcard / Humo)",
+      "auth.course_price": "Стоимость курса (сум)",
+      "auth.hint": "Заполните данные для перехода в главное меню",
+      "auth.submit": "Войти на платформу →",
+
+      "nav.main_menu": "Главное меню",
+      "nav.courses": "Мои курсы",
+      "nav.liked": "Понравившиеся курсы",
+      "nav.studio": "Студия",
+      "nav.profile": "Профиль",
+      "nav.settings": "Настройки",
+      "nav.switch_user": "Вход / Сменить роль",
+
+      "search.placeholder": "Поиск по названию курса, учителю или сертификату (IELTS, SAT)...",
+      "search.cat_all": "Все категории",
+      "search.price_all": "Любая цена",
+      "search.rate_all": "Любой рейтинг",
+      "search.best_deal": "★ ЛУЧШЕЕ ПРЕДЛОЖЕНИЕ · РЕКОМЕНДУЕМ",
+      "search.popular_title": "Популярные курсы",
+      "search.results_count": "курсов найдено",
+      "search.overscroll_end": "Вы достигли конца списка курсов",
+
+      "card.i_like_it": "I like it",
+      "card.modules": "курса",
+      "card.apply_btn": "Записаться",
+      "card.continue_btn": "Открыть курс",
+
+      "profile.right_title": "Ваш профиль",
+      "profile.courses_stat": "Мои курсы",
+      "profile.certs_stat": "Сертификаты",
+      "profile.activeness": "Уровень активности",
+      "profile.year_activity": "Активность за последний год",
+      "profile.next_day_utc": "Следующий день в 00:00 UTC",
+      "profile.log_hours": "Отметить часы учебы сегодня:",
+      "profile.earned_certs": "Полученные сертификаты",
+
+      "studio.title": "Студия преподавателя",
+      "studio.activeness": "Активность курса",
+      "studio.profit": "Чистая прибыль",
+      "studio.reviews": "Отзывы учеников",
+
+      "settings.title": "Настройки платформы",
+      "settings.theme": "Цветовая тема (Light / Night Mode)",
+      "settings.notifications": "Уведомления (Notifications)",
+      "settings.video": "Настройки видео (Video Playback)",
+      "settings.account": "Аккаунт и смена роли (Student / Teacher)",
+      "checkout.title": "Запись на курс (Демо оплата)"
+    },
+    en: {
+      "auth.welcome": "Welcome to FindIT",
+      "auth.choose_role": "Sign in as a Student or Teacher to continue",
+      "auth.role_student": "🎓 Student",
+      "auth.role_teacher": "👨‍🏫 Teacher",
+      "auth.email": "Email Address",
+      "auth.username": "Username",
+      "auth.password": "Password",
+      "auth.major": "Your Major",
+      "auth.subject": "Subject & Certificate Planning to Teach",
+      "auth.honors": "Your Honors & Achievements (Qualification)",
+      "auth.past_students": "Past Students Results (Shown in product card)",
+      "auth.card": "Payment Card for Payouts (Uzcard / Humo)",
+      "auth.course_price": "Course Price (UZS)",
+      "auth.hint": "Complete your profile to enter the main menu",
+      "auth.submit": "Continue to Main Menu →",
+
+      "nav.main_menu": "Main menu",
+      "nav.courses": "Courses",
+      "nav.liked": "Liked courses",
+      "nav.studio": "Studio",
+      "nav.profile": "Profile",
+      "nav.settings": "Settings",
+      "nav.switch_user": "Login / Switch Role",
+
+      "search.placeholder": "Search by course name, teacher, or certificate (IELTS, SAT, Milliy Sertifikat)...",
+      "search.cat_all": "All Categories",
+      "search.price_all": "Any Price",
+      "search.rate_all": "Any Rating",
+      "search.best_deal": "★ BEST DEAL IN MARKET · MOST RECOMMENDED",
+      "search.popular_title": "Recent Popular Courses",
+      "search.results_count": "courses found",
+      "search.overscroll_end": "You reached the end of the course list",
+
+      "card.i_like_it": "I like it",
+      "card.modules": "courses",
+      "card.apply_btn": "Apply Now",
+      "card.continue_btn": "Open Course",
+
+      "profile.right_title": "Your Profile",
+      "profile.courses_stat": "Applied Courses",
+      "profile.certs_stat": "Certificates",
+      "profile.activeness": "Activeness Rate",
+      "profile.year_activity": "Activeness over the last year (Активность за последний год)",
+      "profile.next_day_utc": "Следующий день в 00:00 UTC",
+      "profile.log_hours": "Log hours studied today:",
+      "profile.earned_certs": "Earned Certificates",
+
+      "studio.title": "Teacher Studio",
+      "studio.activeness": "Course Activeness",
+      "studio.profit": "Total Profit Made",
+      "studio.reviews": "Student Feedback Reviews",
+
+      "settings.title": "Platform Settings",
+      "settings.theme": "Color Thematics (Light / Night Mode)",
+      "settings.notifications": "Notification Toggles",
+      "settings.video": "Video Playback Defaults",
+      "settings.account": "Account & Role Switch (Student / Teacher)",
+      "checkout.title": "Apply for Course (Demo Checkout)"
+    }
+  };
+
+  function getLang() {
+    try {
+      var saved = global.localStorage.getItem(STORAGE_KEY);
+      if (saved && DICT[saved]) return saved;
+    } catch (e) {}
+    return DEFAULT_LANG;
+  }
+
+  function setLang(lang) {
+    var code = DICT[lang] ? lang : DEFAULT_LANG;
+    try {
+      global.localStorage.setItem(STORAGE_KEY, code);
+    } catch (e) {}
+    if (document && document.documentElement) {
+      document.documentElement.setAttribute("lang", code);
+    }
+    return code;
+  }
+
+  function t(key, fallback) {
+    var lang = getLang();
+    var table = DICT[lang] || DICT[DEFAULT_LANG];
+    if (table && Object.prototype.hasOwnProperty.call(table, key)) {
+      return table[key];
+    }
+    var defTable = DICT[DEFAULT_LANG];
+    if (defTable && Object.prototype.hasOwnProperty.call(defTable, key)) {
+      return defTable[key];
+    }
+    return fallback !== undefined ? fallback : key;
+  }
+
+  function formatUzs(amount) {
+    var n = Math.round(Number(amount) || 0);
+    var str = String(Math.abs(n)).replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+    return (n < 0 ? "-" : "") + str + " so'm";
+  }
+
+  FindIt.i18n = {
+    DEFAULT_LANG: DEFAULT_LANG,
+    DICT: DICT,
+    getLang: getLang,
+    setLang: setLang,
+    t: t,
+    formatUzs: formatUzs
+  };
+})(window);
+
+/* ==========================================================================
+   FindIT Fee & Value Score Calculation Engine
+   ========================================================================== */
+(function (global) {
+  "use strict";
+
+  var FindIt = (global.FindIt = global.FindIt || {});
+
+  var EXAMPLE_FEE_TIERS_CONFIG = {
+    tiers: [
+      { minSubscribers: 0, ratePercent: 5, label: "Base Tier (0–99)" },
+      { minSubscribers: 100, ratePercent: 4, label: "Growth Tier (100–499)" },
+      { minSubscribers: 500, ratePercent: 3, label: "Scale Tier (500–999)" },
+      { minSubscribers: 1000, ratePercent: 2, label: "Partner Tier (1000+)" }
+    ]
+  };
+
+  function getTierForSubscribers(subscriberCount) {
+    var count = Math.max(0, Math.floor(Number(subscriberCount) || 0));
+    var tiers = EXAMPLE_FEE_TIERS_CONFIG.tiers;
+    var matched = tiers[0];
+    for (var i = 0; i < tiers.length; i++) {
+      if (count >= tiers[i].minSubscribers) matched = tiers[i];
+    }
+    return matched;
+  }
+
+  function calculateCourseEconomics(priceUzs, subscriberCount) {
+    var price = Math.max(0, Math.round(Number(priceUzs) || 0));
+    var subs = Math.max(0, Math.floor(Number(subscriberCount) || 0));
+    var tier = getTierForSubscribers(subs);
+    var rateDecimal = tier.ratePercent / 100;
+    var feePerSubscriber = Math.round(price * rateDecimal);
+    var netPerSubscriber = Math.max(0, price - feePerSubscriber);
+    var grossRevenue = price * subs;
+    var findItFeeTotal = feePerSubscriber * subs;
+    var netEarnings = grossRevenue - findItFeeTotal;
+    return {
+      priceUzs: price,
+      subscriberCount: subs,
+      ratePercent: tier.ratePercent,
+      tierLabel: tier.label,
+      feePerSubscriber: feePerSubscriber,
+      netPerSubscriber: netPerSubscriber,
+      grossRevenue: grossRevenue,
+      findItFeeTotal: findItFeeTotal,
+      netEarnings: netEarnings
+    };
+  }
+
+  function calculateStudioSummary(courses) {
+    var list = Array.isArray(courses) ? courses : [];
+    var totalSubscribers = 0;
+    var totalGross = 0;
+    var totalFee = 0;
+    var totalNet = 0;
+    var breakdown = [];
+
+    for (var i = 0; i < list.length; i++) {
+      var c = list[i] || {};
+      var econ = calculateCourseEconomics(c.price || 0, c.subscribers || 0);
+      totalSubscribers += econ.subscriberCount;
+      totalGross += econ.grossRevenue;
+      totalFee += econ.findItFeeTotal;
+      totalNet += econ.netEarnings;
+      breakdown.push({
+        courseId: c.id,
+        title: c.title,
+        economics: econ
+      });
+    }
+
+    var effectiveRatePercent = totalGross > 0
+      ? Math.round((totalFee / totalGross) * 1000) / 10
+      : 5.0;
+
+    return {
+      totalSubscribers: totalSubscribers,
+      totalGross: totalGross,
+      totalFee: totalFee,
+      totalNet: totalNet,
+      effectiveRatePercent: effectiveRatePercent,
+      breakdown: breakdown
+    };
+  }
+
+  /**
+   * Point 7 & User Clarification #5:
+   * Combined Value Score balancing rating, review count, and price:
+   * Higher rating + higher verified review volume + more affordable price = higher score.
+   * Formula: ((rating ^ 2) * Math.log10(reviewCount + 10)) / (price / 100000)
+   */
+  function calculateValueScore(course) {
+    if (!course) return 0;
+    var rating = Number(course.rating) || 4.5;
+    var reviews = Math.max(1, Number(course.reviewCount) || 1);
+    var priceIn100k = Math.max(1, (Number(course.price) || 350000) / 100000);
+    var raw = (Math.pow(rating, 2) * Math.log10(reviews + 10)) / priceIn100k;
+    return Math.round(raw * 100) / 100;
+  }
+
+  FindIt.fees = {
+    calculateCourseEconomics: calculateCourseEconomics,
+    calculateStudioSummary: calculateStudioSummary,
+    calculateValueScore: calculateValueScore
+  };
+})(window);
+
+/* ==========================================================================
+   FindIT Seed Data (Courses with Past Student Results, Teacher Honors, SVG Art,
+   Certificates, and 52-Week Activity Heatmap Seed)
+   ========================================================================== */
+(function (global) {
+  "use strict";
+
+  var FindIt = (global.FindIt = global.FindIt || {});
+
+  var COURSES = [
+    {
+      id: "course-4",
+      slug: "ielts-academic-75-mastery",
+      title: "IELTS Academic 7.5+ Mastery: Writing & Speaking Focus",
+      category: "IELTS",
+      certificateTarget: "IELTS Academic (Band 7.5–8.5)",
+      creatorId: "creator-2",
+      creatorName: "Dilnoza Rasulova",
+      creatorHandle: "dilnoza-rasulova",
+      teacherHonors: "IELTS 8.5 (Writing 8.0) · CELTA Pass A",
+      pastStudentsResult: "96% bitiruvchilar IELTS 7.5+ oldi (520+ talaba)",
+      price: 340000,
+      rating: 4.98,
+      reviewCount: 214,
+      subscribers: 1080,
+      durationHours: 46,
+      modulesCount: 4,
+      level: "Intermediate",
+      language: "English",
+      updatedDate: "2026-10-28",
+      iconType: "ielts",
+      shortDesc: "Band 8.5 mentoridan IELTS Writing Task 1/2 mantiqiy strukturasi, Speaking Part 2/3 ravonligi va Reading strategiyalari.",
+      sections: [
+        {
+          title: "1-modul: Writing Task 2 Analytical Architecture",
+          lessons: [
+            { id: "l-401", title: "Band 8.0 Writing mezonlari va Topic Sentence tahlili", type: "video", durationMin: 24, content: "Yodlangan qoliplarsiz yuqori ball olish metodikasi." },
+            { id: "l-402", title: "Opinion va Discussion esselar strukturasi", type: "text", durationMin: 32, content: "PEEL/TEEL paragraflarini real esselarda qo'llash." },
+            { id: "l-403", title: "120 ta Akademik Kollokatsiyalar Ro'yxati (PDF)", type: "pdf", durationMin: 20, content: "Akademik Writing uchun eng muhim leksik birliklar." }
+          ]
+        },
+        {
+          title: "2-modul: Speaking & Reading Precision",
+          lessons: [
+            { id: "l-404", title: "Speaking Part 2: 2 daqiqalik ravon hikoya usuli", type: "video", durationMin: 29, content: "To'xtab qolmasdan javob berish mashqlari." },
+            { id: "l-405", title: "Reading True/False/Not Given tuzoqlari", type: "text", durationMin: 26, content: "Har bir passage uchun 20 daqiqalik taym-menejment." }
+          ]
+        }
+      ]
+    },
+    {
+      id: "course-1",
+      slug: "milliy-sertifikat-matematika-a-plus",
+      title: "Milliy Sertifikat Matematika: A+ Darajaga Tizimli Tayyorlov",
+      category: "Milliy Sertifikat",
+      certificateTarget: "Milliy Sertifikat (Matematika A/A+)",
+      creatorId: "creator-3",
+      creatorName: "Sarvar Toshev",
+      creatorHandle: "sarvar-toshev",
+      teacherHonors: "Milliy Sertifikat A+ (98.4 ball) · Xalqaro Olimpiada G'olibi",
+      pastStudentsResult: "94% o'quvchilar A va A+ sertifikat oldi (2026)",
+      price: 360000,
+      rating: 4.95,
+      reviewCount: 168,
+      subscribers: 890,
+      durationHours: 54,
+      modulesCount: 5,
+      level: "Intermediate",
+      language: "Uzbek",
+      updatedDate: "2026-10-25",
+      iconType: "math",
+      shortDesc: "Algebra, funksiyalar, hosila va stereometriya bo'yicha rasmiy imtihon savollarini yechish metodikasi.",
+      sections: [
+        {
+          title: "1-modul: Algebra va Funksiyalar Asosi",
+          lessons: [
+            { id: "l-101", title: "Rasch modeli va Milliy Sertifikat baholash tizimi", type: "video", durationMin: 18, content: "Ochiq va yopiq savollar vazni hamda vaqt taqsimoti." },
+            { id: "l-102", title: "Parametrli kvadrat tenglamalar tizimi", type: "text", durationMin: 35, content: "Vieta teoremasi va ildizlar joylashuvi." },
+            { id: "l-103", title: "Logarifmik tengsizliklar konspekti (PDF)", type: "pdf", durationMin: 25, content: "Asos almashtirish va aniqlanish sohasi." }
+          ]
+        },
+        {
+          title: "2-modul: Stereometriya va Ehtimollar",
+          lessons: [
+            { id: "l-104", title: "Ko'pyoqlilar va aylanish jismlari hajmi", type: "video", durationMin: 40, content: "Piramida va konusga ichki chizilgan sharlar." }
+          ]
+        }
+      ]
+    },
+    {
+      id: "course-6",
+      slug: "digital-sat-1500-math-rw",
+      title: "Digital SAT 1500+ Bootcamp: Desmos Mastery & Reading",
+      category: "SAT",
+      certificateTarget: "Digital SAT (1500+ Score)",
+      creatorId: "creator-4",
+      creatorName: "Malik Yusupov",
+      creatorHandle: "malik-yusupov",
+      teacherHonors: "SAT 1560 (Math 800) · AP Calculus BC 5/5",
+      pastStudentsResult: "O'rtacha +210 ball o'sish · 89% o'quvchi 1480+ oldi",
+      price: 390000,
+      rating: 4.94,
+      reviewCount: 142,
+      subscribers: 620,
+      durationHours: 48,
+      modulesCount: 4,
+      level: "Intermediate",
+      language: "English",
+      updatedDate: "2026-10-22",
+      iconType: "sat",
+      shortDesc: "Digital SAT Math bo'limida Desmos kalkulyatori orqali masalalarni 15 soniyada yechish va Reading & Writing mantiqiy tahlili.",
+      sections: [
+        {
+          title: "1-modul: Desmos Regression & System Shortcuts",
+          lessons: [
+            { id: "l-601", title: "Desmos orqali chiziqli va kvadratik tizimlarni yechish", type: "video", durationMin: 28, content: "Vaqtni 2 barobar tejaydigan Desmos funksiyalari." },
+            { id: "l-602", title: "Reading & Writing: Craft and Structure", type: "text", durationMin: 30, content: "Ilmiy matnlarda asosiy dalilni topish." }
+          ]
+        }
+      ]
+    },
+    {
+      id: "course-10",
+      slug: "frontend-engineering-bootstrap-js",
+      title: "Kasb: Frontend va Data Muhandisi (Pandas + Matplotlib + Web)",
+      category: "Tech skills",
+      certificateTarget: "Frontend & Data Engineering Sertifikati",
+      creatorId: "creator-1",
+      creatorName: "Oybek Karimov, Sergey Spiryov",
+      creatorHandle: "oybek-karimov",
+      teacherHonors: "Senior Software Architect · 6 yil amaliy tajriba",
+      pastStudentsResult: "88% bitiruvchilar IT-Park va xalqaro stajirovkaga kirdi",
+      price: 320000,
+      rating: 4.92,
+      reviewCount: 154,
+      subscribers: 890,
+      durationHours: 64,
+      modulesCount: 6,
+      level: "Beginner",
+      language: "Uzbek",
+      updatedDate: "2026-10-27",
+      iconType: "data",
+      shortDesc: "Zamonaviy HTML5, CSS/SCSS, JavaScript hamda Python (Pandas, Matplotlib, Seaborn) yordamida real dasturiy loyihalar yaratish.",
+      sections: [
+        {
+          title: "1-modul: Web Arxitektura va Komponentlar",
+          lessons: [
+            { id: "l-1001", title: "Responsive Grid va CSS Custom Properties", type: "video", durationMin: 25, content: "Dizayn tokenlari va Dark/Light rejim arxitekturasi." },
+            { id: "l-1002", title: "DOM hodisalari va State boshqaruvi", type: "text", durationMin: 35, content: "Bir sahifali ilovalarda marshrutlash (Router)." },
+            { id: "l-1003", title: "Pandas va Matplotlib ma'lumotlar vizualizatsiyasi", type: "pdf", durationMin: 30, content: "Analitik grafiklar qurish asoslari." }
+          ]
+        }
+      ]
+    },
+    {
+      id: "course-5",
+      slug: "ielts-speaking-writing-intensive",
+      title: "IELTS Band 7.0 Express: Intensive Mock & Essay Correction",
+      category: "IELTS",
+      certificateTarget: "IELTS Academic & General (7.0+)",
+      creatorId: "creator-7",
+      creatorName: "Nodira Xolmatova",
+      creatorHandle: "nodira-xolmatova",
+      teacherHonors: "CEFR C1 · IELTS 8.0 · Cambridge TKT Band 4",
+      pastStudentsResult: "91% o'quvchilar 6 haftada Writing ballini +1.0 ga oshirdi",
+      price: 410000,
+      rating: 4.86,
+      reviewCount: 84,
+      subscribers: 468,
+      durationHours: 38,
+      modulesCount: 3,
+      level: "Intermediate",
+      language: "English",
+      updatedDate: "2026-10-19",
+      iconType: "ielts",
+      shortDesc: "IELTS topshiruvchilar uchun tezkor 6 haftalik Writing va Speaking amaliyoti hamda 10 ta to'liq Mock tahlili.",
+      sections: [
+        {
+          title: "1-modul: Task 1 Academic Graphs & Maps",
+          lessons: [
+            { id: "l-501", title: "Dynamic va Static grafiklarni taqqoslash", type: "video", durationMin: 22, content: "Overview paragrafni xatosiz yozish." }
+          ]
+        }
+      ]
+    },
+    {
+      id: "course-12",
+      slug: "python-data-engineer-pro",
+      title: "Kasb \"Ma'lumotlar Muhandisi\" (Data Engineer: Python, SQL, Airflow)",
+      category: "Tech skills",
+      certificateTarget: "Professional Data Engineer Diploma",
+      creatorId: "creator-6",
+      creatorName: "Javohir Ergashev, Vlad Burmistrov",
+      creatorHandle: "javohir-ergashev",
+      teacherHonors: "A-Level A*A*A · Senior Data & PostgreSQL Engineer",
+      pastStudentsResult: "92% bitiruvchilar Junior/Middle Data Engineer sifatida ish boshladi",
+      price: 450000,
+      rating: 4.91,
+      reviewCount: 96,
+      subscribers: 512,
+      durationHours: 157,
+      modulesCount: 8,
+      level: "Advanced",
+      language: "Russian",
+      updatedDate: "2026-10-24",
+      iconType: "engineer",
+      shortDesc: "Python, PostgreSQL, Docker, Git va ETL pipeline arxitekturasi bo'yicha to'liq 8 kurslik amaliy dastur.",
+      sections: [
+        {
+          title: "1-modul: SQL va Ma'lumotlar Ombori Loyihalash",
+          lessons: [
+            { id: "l-1201", title: "PostgreSQL indekslar va murakkab JOIN so'rovlari", type: "video", durationMin: 34, content: "Katta hajmli jadvallarni optimallashtirish." }
+          ]
+        }
+      ]
+    },
+    {
+      id: "course-2",
+      slug: "milliy-sertifikat-ona-tili-adabiyot",
+      title: "Milliy Sertifikat Ona Tili va Adabiyot: 75 Ballik Esse va Tahlil",
+      category: "Milliy Sertifikat",
+      certificateTarget: "Milliy Sertifikat (Ona tili A/A+)",
+      creatorId: "creator-5",
+      creatorName: "Kamola Nurmatova",
+      creatorHandle: "kamola-nurmatova",
+      teacherHonors: "Milliy Sertifikat A+ · Filologiya fanlari magistri",
+      pastStudentsResult: "93% o'quvchilar essedan 65+ ball to'pladi (320+ talaba)",
+      price: 330000,
+      rating: 4.89,
+      reviewCount: 76,
+      subscribers: 410,
+      durationHours: 32,
+      modulesCount: 3,
+      level: "Beginner",
+      language: "Uzbek",
+      updatedDate: "2026-10-16",
+      iconType: "lang",
+      shortDesc: "Sintaksis, punktuatsiya, o'qib tushunish matnlari va yuqori balli argumentativ esse yozish sirlari.",
+      sections: [
+        {
+          title: "1-modul: Argumentativ Esse Tuzilmasi",
+          lessons: [
+            { id: "l-201", title: "75 ballik baholash mezoni va tezis qo'yish", type: "video", durationMin: 25, content: "Publitsistik va ilmiy matnlar tahlili." }
+          ]
+        }
+      ]
+    },
+    {
+      id: "course-8",
+      slug: "cambridge-a-level-pure-mathematics",
+      title: "Cambridge International A-Level Pure Mathematics & Mechanics",
+      category: "A-Level",
+      certificateTarget: "Cambridge A-Level (Grade A / A*)",
+      creatorId: "creator-6",
+      creatorName: "Javohir Ergashev",
+      creatorHandle: "javohir-ergashev",
+      teacherHonors: "Cambridge A-Level A*A*A · Olimpiada mentori",
+      pastStudentsResult: "90% o'quvchilar Paper 1 va Paper 3 dan A/A* oldi",
+      price: 490000,
+      rating: 4.82,
+      reviewCount: 44,
+      subscribers: 230,
+      durationHours: 60,
+      modulesCount: 5,
+      level: "Advanced",
+      language: "English",
+      updatedDate: "2026-10-14",
+      iconType: "math",
+      shortDesc: "Differential Equations, Vectors, Complex Numbers va Mechanics bo'yicha Past Paper yechimlari.",
+      sections: [
+        {
+          title: "1-modul: Pure Mathematics P1 & P3",
+          lessons: [
+            { id: "l-801", title: "Trigonometric Identities & Integration by Parts", type: "video", durationMin: 36, content: "Cambridge mark scheme talablari." }
+          ]
+        }
+      ]
+    }
+  ];
+
+  /* Procedurally expand COURSES to 100 sample courses across random topics, random prices, and random ratings */
+  (function expandTo100SampleCourses() {
+    var randomTopics = [
+      { cat: "IELTS", cert: "IELTS Academic 7.5–8.5", icon: "ielts", titles: [
+        "IELTS Speaking Part 2 & 3 Native Fluency Bootcamp",
+        "IELTS Writing Task 1 Academic Diagrams & Maps",
+        "IELTS Listening 8.5+ Speed & Distractor Mastery",
+        "IELTS Reading True/False/Not Given Intensive",
+        "IELTS Band 8.0 Express 30-Day Preparation",
+        "IELTS General Training Immigration Track 7.5+",
+        "IELTS Lexical Resource & Academic Collocations",
+        "IELTS Mock Exam Analytics & Examiner Feedback"
+      ]},
+      { cat: "Milliy Sertifikat", cert: "Milliy Sertifikat A/A+", icon: "math", titles: [
+        "Milliy Sertifikat Fizika: Mexanika va Elektrodinamika A+",
+        "Milliy Sertifikat Ona Tili va Adabiyot: Esse va Test",
+        "Milliy Sertifikat Kimyo: Organik va Noorganik Masalalar",
+        "Milliy Sertifikat Biologiya: Genetika va Sitologiya A+",
+        "Milliy Sertifikat Tarix: Xronologiya va Manbashunoslik",
+        "Milliy Sertifikat Geografiya va Iqtisodiy Xarita Tahlili",
+        "Milliy Sertifikat Rus Tili C1 Akademik Tayyorlov",
+        "Milliy Sertifikat Algebra va Geometriya Olimpiada Track"
+      ]},
+      { cat: "SAT", cert: "Digital SAT 1500+", icon: "sat", titles: [
+        "Digital SAT Reading & Writing Craft and Structure",
+        "Digital SAT Advanced Math & Desmos Graphing Hacks",
+        "SAT 1550+ Ivy League Scholarship Strategy",
+        "SAT Verbal Vocabulary in Context & Logic Puzzles",
+        "SAT Non-Calculator Mental Math & Quadratics",
+        "SAT Full-Length Adaptive Practice & Timing Lab"
+      ]},
+      { cat: "A-Level", cert: "Cambridge A-Level A*", icon: "math", titles: [
+        "Cambridge A-Level Physics (9702): Fields & Quantum",
+        "Cambridge A-Level Chemistry (9701): Organic Synthesis",
+        "Cambridge A-Level Computer Science (9618) Python & OOP",
+        "Cambridge A-Level Economics (9708): Macro & Micro Essays",
+        "Cambridge A-Level Further Mathematics Mechanics & Stats",
+        "Cambridge IGCSE to A-Level Bridge Foundation"
+      ]},
+      { cat: "Tech skills", cert: "Full-Stack & Software Engineering", icon: "code", titles: [
+        "React 19, TypeScript va Next.js Production Arxitekturasi",
+        "Node.js, Express va PostgreSQL Backend Engineering",
+        "Go (Golang) Microservices va High-Load Tizimlar",
+        "Docker, Kubernetes va CI/CD DevOps Amaliyoti",
+        "Flutter & Dart: iOS va Android Mobil Ilovalar",
+        "Rust Tizimli Dasturlash va Xotira Xavfsizligi",
+        "Vue 3, Pinia va Tailwind CSS Zamonaviy Interfeyslar",
+        "GraphQL, Prisma va Serverless CloudIlovalar",
+        "Linux Server Boshqaruvi va Bash Avtomatlashtirish",
+        "Git, GitHub Actions va Jamoaviy Dasturlash"
+      ]},
+      { cat: "Data Science & AI", cert: "Data Science & AI Certificate", icon: "data", titles: [
+        "PyTorch va Deep Learning: Neyron Tarmoqlar Asoslari",
+        "LLM Engineering: RAG, LangChain va AI Agentlar",
+        "SQL va BigQuery: Analitik Ma'lumotlar Bazasi",
+        "Power BI va Tableau: Biznes Analitika Dashboardlari",
+        "Kompyuter Ko'rishi (OpenCV & YOLO) Amaliy Kursi",
+        "NLP va O'zbek Tilidagi Matnlarni Qayta Ishlash",
+        "MLOps: ML Modellarni Serverga Chiqarish",
+        "Statistika va Ehtimollar Nazariyasi Data Science Uchun",
+        "Apache Spark, Airflow va Katta Ma'lumotlar (Big Data)",
+        "Time-Series Forecasting va Moliyaviy Prognozlash"
+      ]},
+      { cat: "Grafik Dizayn", cert: "UI/UX & Visual Design Pro", icon: "engineer", titles: [
+        "Figma UI/UX: Design Systems va Interaktiv Prototiplash",
+        "Adobe Illustrator: Brending va Logotip Konstruksiyasi",
+        "Blender 3D: Modellashtirish, Yorug'lik va Render",
+        "Motion Design: After Effects va Kinetik Tipografika",
+        "Mobil Ilovalar Uchun UX Tadqiqot va Usability Test",
+        "Webflow va Framer: No-Code Kreativ Veb-Dizayn",
+        "Photoshop Retush va Reklama Posterlari Dizayni",
+        "Cinema 4D va Redshift: 3D Mahsulot Vizualizatsiyasi"
+      ]},
+      { cat: "Biznes & Moliya", cert: "ACCA / Business Management", icon: "sat", titles: [
+        "ACCA F3 (FA) Moliyaviy Hisobot Xalqaro Standartlari",
+        "Startap Moliya Modeli, Unit-Ekonomika va Venture Pitch",
+        "Raqamli Marketing: Performance Ads, SEO va Analitika",
+        "Product Management: Agile, Scrum va Mahsulot Strategiyasi",
+        "1C Buxgalteriya 8.3 va Soliq Hisobotlari Amaliyoti",
+        "E-Commerce: Uzum Market va Amazon Savdo Tizimi",
+        "Korporativ Moliya va Investitsiya Loyihalarini Baholash",
+        "HR Management va IT Rekruting Tizimi"
+      ]},
+      { cat: "Chet tillari", cert: "CEFR C1 / TOPIK / Goethe", icon: "ielts", titles: [
+        "TOPIK II (4–6 Daraja) Koreys Tili Grammatikasi va Insho",
+        "Goethe-Zertifikat B2/C1 Nemis Tili Akademik Kursi",
+        "CEFR C1 Ingliz Tili: Akademik Munozara va Tahlil",
+        "Arab Tili (Fus'ha) va Klassik Grammatika (Nahv-Sarf)",
+        "HSK 4–5 Xitoy Tili Ieroglifika va Biznes Muloqot",
+        "Turk Tili TÖMER C1 Erkin So'zlashuv va Akademik Yozuv",
+        "Fransuz Tili DELF B2 Xalqaro Imtihon Tayyorlovi",
+        "Yapon Tili JLPT N3/N2 Kanji va Tinglab Tushunish"
+      ]},
+      { cat: "Kiberxavfsizlik", cert: "CompTIA Security+ / CEH", icon: "engineer", titles: [
+        "Ethical Hacking va Veb-Ilovalarni Pentest Qilish (OWASP)",
+        "Tarmoq Xavfsizligi (Cisco CCNA & Firewall Sozlash)",
+        "SOC Analyst: SIEM, Log Tahlili va Hodisalarga Javob",
+        "Kriptografiya va Blokcheyn Xavfsizlik Arxitekturasi",
+        "Bulutli Xavfsizlik (AWS & Azure Security Hardening)",
+        "Raqamli Kriminalistika (Digital Forensics) Asoslari"
+      ]}
+    ];
+
+    var instructors = [
+      { name: "Azizbek Rahimov", honors: "Senior Software Architect · 9 yil tajriba", result: "89% bitiruvchilar IT kompaniyalarga ishga kirdi" },
+      { name: "Malika Yunusova", honors: "IELTS 8.5 · Cambridge Delta Module 2", result: "95% o'quvchilar CEFR C1 va IELTS 7.5+ oldi" },
+      { name: "Javohir Tursunov", honors: "PhD Matematika · Xalqaro IMC Oltin medali", result: "91% talabalar Milliy Sertifikat A/A+ oldi" },
+      { name: "Nilufar Xoliqova", honors: "Lead Product Designer · Ex-EPAM", result: "420+ bitiruvchi xalqaro frilansda daromadga chiqdi" },
+      { name: "Bekzod Nurmatov", honors: "Kaggle Master · AI Research Engineer", result: "93% o'quvchilar real ML portfolio himoya qildi" },
+      { name: "Gulnoza Saidova", honors: "ACCA Affiliate · DipIFR Sertifikat", result: "88% tinglovchilar F3/F7 imtihonidan 1-urinishda o'tdi" },
+      { name: "Sanjarbek Oripov", honors: "OSCP & CEH Certified Security Lead", result: "92% bitiruvchilar Security Lab sinovlaridan o'tdi" },
+      { name: "Zarina Abdullayeva", honors: "TOPIK Level 6 · GKS Scholarship Winner", result: "94% o'quvchilar Koreya universitetlariga grant yutdi" },
+      { name: "Rustamjon Qosimov", honors: "SAT 1570 · Wharton Alumni Mentor", result: "90% o'quvchilar Digital SAT 1480+ ball to'pladi" },
+      { name: "Diyorbek Mirzayev", honors: "Cambridge A* Tutor · Imperial College BSc", result: "96% o'quvchilar A va A* natija qayd etdi" }
+    ];
+
+    var idxCounter = 13;
+    while (COURSES.length < 100) {
+      var n = COURSES.length;
+      var topicGroup = randomTopics[n % randomTopics.length];
+      var titleBase = topicGroup.titles[Math.floor(n / randomTopics.length) % topicGroup.titles.length];
+      var variantSuffix = n >= 80 ? " (Pro Cohort #" + (n - 70) + ")" : (n >= 55 ? " — Intensiv Amaliyot" : "");
+      var fullTitle = titleBase + variantSuffix;
+      var inst = instructors[(n * 3 + 7) % instructors.length];
+
+      /* Deterministic pseudo-random price (115,000 to 960,000 so'm) and rating (3.88 to 5.00) */
+      var rawPriceStep = ((n * 37 + 13) % 85); /* 0..84 */
+      var price = 115000 + rawPriceStep * 10000;
+      var rawRateStep = ((n * 53 + 19) % 113); /* 0..112 */
+      var rating = Math.round((3.88 + (rawRateStep / 112) * 1.12) * 100) / 100;
+      var reviewCount = 18 + ((n * 71 + 29) % 820);
+      var subscribers = 45 + ((n * 149 + 41) % 2950);
+      var durationHours = 16 + ((n * 23 + 11) % 135);
+      var modulesCount = 3 + (n % 8);
+      var cid = "course-" + idxCounter;
+      idxCounter++;
+
+      COURSES.push({
+        id: cid,
+        slug: cid + "-" + topicGroup.cat.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+        title: fullTitle,
+        category: topicGroup.cat,
+        certificateTarget: topicGroup.cert,
+        creatorId: "creator-gen-" + (n % 10),
+        creatorName: inst.name,
+        creatorHandle: inst.name.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+        teacherHonors: inst.honors,
+        pastStudentsResult: inst.result + " (" + subscribers + " talaba)",
+        price: price,
+        rating: rating,
+        reviewCount: reviewCount,
+        subscribers: subscribers,
+        durationHours: durationHours,
+        modulesCount: modulesCount,
+        level: (n % 3 === 0 ? "Beginner" : (n % 3 === 1 ? "Intermediate" : "Advanced")),
+        language: (n % 4 === 0 ? "English" : (n % 5 === 0 ? "Russian" : "Uzbek")),
+        updatedDate: "2026-10-" + String(10 + (n % 19)).padStart(2, "0"),
+        iconType: topicGroup.icon,
+        shortDesc: inst.name + " rahbarligida " + topicGroup.cat + " yo'nalishi bo'yicha real keys va imtihon mashqlariga asoslangan to'liq amaliy kurs.",
+        sections: [
+          {
+            title: "1-modul: Fundamental Tushunchalar va Diagnostika",
+            lessons: [
+              { id: cid + "-l1", title: "Kirish, o'quv rejasi va maqsadli ko'rsatkichlar", type: "video", durationMin: 24, content: "Kurs metodologiyasi va amaliy vazifalar tahlili." },
+              { id: cid + "-l2", title: "Asosiy nazariya va amaliy shablonlar to'plami", type: "text", durationMin: 32, content: "Mavzu bo'yicha konspekt va asosiy formulalar." },
+              { id: cid + "-l3", title: "Mustahkamlash uchun 50 ta saralangan mashq (PDF)", type: "pdf", durationMin: 28, content: "Javoblar kaliti bilan birga mustaqil ishlash to'plami." }
+            ]
+          },
+          {
+            title: "2-modul: Chuqurlashtirilgan Amaliyot va Imtihon / Portfolio",
+            lessons: [
+              { id: cid + "-l4", title: "Murakkab masalalar va real keys-stadi tahlili", type: "video", durationMin: 38, content: "Ekspert darajasidagi yechimlar va xatolarni tuzatish." },
+              { id: cid + "-l5", title: "Yakuniy sinov va Sertifikat himoyasi", type: "text", durationMin: 40, content: "Yakuniy imtihon topshirish va FindIT sertifikatini olish." }
+            ]
+          }
+        ]
+      });
+    }
+  })();
+
+  /* Generate 546 days (78 weeks x 7 days = 18 months) of Stepik activity hours so the extended graph is rich and complete */
+  function generateDefaultYearlyActivity() {
+    var days = [];
+    /* Seed deterministic realistic study hours across 546 days (78 weeks / 18 months) */
+    for (var i = 0; i < 546; i++) {
+      var hrs = 0;
+      if (i % 9 === 0) hrs = 1.5;
+      else if (i % 13 === 0) hrs = 2.5;
+      else if (i % 17 === 0) hrs = 3.5;
+      else if (i % 23 === 0) hrs = 4.5;
+      else if (i > 480 && i % 3 === 0) hrs = 2.0 + ((i % 4) * 0.5);
+      days.push(hrs);
+    }
+    days[543] = 3.0;
+    days[544] = 4.0;
+    days[545] = 2.5;
+    return days;
+  }
+
+  var DEFAULT_USER = {
+    id: "user-1",
+    hasCompletedLogin: false,
+    role: "student", /* 'student' or 'teacher' */
+    email: "baxbergen2010@gmail.com",
+    name: "Baqbergen Xojanbergenov",
+    handle: "baqbergen-xojanbergenov",
+    initials: "BX",
+    major: "Computer Science & Engineering",
+    /* Teacher-specific fields */
+    subjectCert: "IELTS Academic 8.0+ & SAT Math",
+    honors: "IELTS 8.5 · CELTA Pass A · 1-o'rin Olimpiada",
+    pastStudentsResult: "94% o'quvchilar IELTS 7.5+ va A+ natija qayd etdi (2026)",
+    paymentCard: "8600 4921 •••• 7814",
+    coursePrice: 420000,
+    /* Settings */
+    theme: "light",
+    notifications: {
+      courseUpdates: true,
+      studentReviews: true,
+      dailyReminders: true
+    },
+    videoDefaults: {
+      autoplayPreview: true,
+      defaultQuality: "1080p HD"
+    },
+    /* Earned Certificates for Stepik Profile */
+    certificates: [
+      {
+        id: "cert-101",
+        title: "IELTS Academic 7.5+ Mastery — Verified Completion",
+        issuer: "FindIT · Dilnoza Rasulova (CELTA Pass A)",
+        score: "Band 8.0 Equivalent (96%)",
+        issuedAt: "2026-10-18",
+        code: "FI-UZ-2026-8841"
+      },
+      {
+        id: "cert-102",
+        title: "Milliy Sertifikat Matematika (A+ Track)",
+        issuer: "FindIT · Sarvar Toshev",
+        score: "A+ Grade (94.5 / 100)",
+        issuedAt: "2026-09-29",
+        code: "FI-UZ-2026-7392"
+      },
+      {
+        id: "cert-103",
+        title: "Frontend & Data Engineering (Pandas + Web)",
+        issuer: "FindIT · Oybek Karimov",
+        score: "Honors Distinction (98%)",
+        issuedAt: "2026-10-27",
+        code: "FI-UZ-2026-9104"
+      }
+    ],
+    yearlyActivityHours: generateDefaultYearlyActivity()
+  };
+
+  /* Initial Applied / Enrolled Courses (Shown as sub-themes in Courses folder explorer) */
+  var INITIAL_ENROLLMENTS = [
+    {
+      courseId: "course-4",
+      userId: "user-1",
+      purchasedAt: "2026-10-10",
+      completedLessonIds: ["l-401", "l-402", "l-403"],
+      paymentMethod: "Payme"
+    },
+    {
+      courseId: "course-1",
+      userId: "user-1",
+      purchasedAt: "2026-10-15",
+      completedLessonIds: ["l-101", "l-102"],
+      paymentMethod: "Click"
+    }
+  ];
+
+  /* Initial Liked Courses */
+  var INITIAL_LIKED_IDS = ["course-4", "course-10"];
+
+  /* Initial Reviews for Studio & Course Detail */
+  var INITIAL_REVIEWS = [
+    {
+      id: "rev-1",
+      courseId: "course-4",
+      userId: "user-2",
+      userName: "Sardor Alimov",
+      rating: 5,
+      text: "Writing Task 2 bo'yicha yodlangan shablonlardan voz kechib, mantiqiy paragraf yozishni o'rgandim. Writing 6.0 dan 7.5 ga chiqdi!",
+      createdAt: "2026-10-26",
+      verifiedBuyer: true,
+      creatorReply: "Tabriklayman, Sardor! Mehnatingiz natijasini berdi."
+    },
+    {
+      id: "rev-2",
+      courseId: "course-1",
+      userId: "user-3",
+      userName: "Shoxrux Mirzayev",
+      rating: 5,
+      text: "Stereometriya va parametrli tenglamalar juda tushunarli tahlil qilingan. O'tgan oyda A+ daraja oldim!",
+      createdAt: "2026-10-24",
+      verifiedBuyer: true,
+      creatorReply: "Barakalla, Shoxrux! Keyingi bosqichlarda ham omad!"
+    },
+    {
+      id: "rev-3",
+      courseId: "course-10",
+      userId: "user-4",
+      userName: "Madina Qodirova",
+      rating: 5,
+      text: "Pandas, Matplotlib va veb-interfeys integratsiyasi bo'yicha eng amaliy kurs. Portfolio loyiham tayyor bo'ldi.",
+      createdAt: "2026-10-21",
+      verifiedBuyer: true,
+      creatorReply: null
+    }
+  ];
+
+  FindIt.seed = {
+    COURSES: COURSES,
+    DEFAULT_USER: DEFAULT_USER,
+    INITIAL_ENROLLMENTS: INITIAL_ENROLLMENTS,
+    INITIAL_LIKED_IDS: INITIAL_LIKED_IDS,
+    INITIAL_REVIEWS: INITIAL_REVIEWS
+  };
+})(window);
+
+/* ==========================================================================
+   FindIT Store & State Management (LocalStorage with In-Memory Fallback)
+   ========================================================================== */
+(function (global) {
+  "use strict";
+
+  var FindIt = (global.FindIt = global.FindIt || {});
+
+  var KEYS = {
+    USER: "findit:v3:user",
+    COURSES: "findit:v3:courses",
+    ENROLLMENTS: "findit:v3:enrollments",
+    LIKED: "findit:v3:liked",
+    REVIEWS: "findit:v3:reviews",
+    FILTERS: "findit:v3:filters"
+  };
+
+  var memoryStore = {};
+
+  function readStorage(key, fallback) {
+    try {
+      var raw = global.localStorage.getItem(key);
+      if (raw !== null && raw !== undefined) {
+        return JSON.parse(raw);
+      }
+    } catch (e) {}
+    if (Object.prototype.hasOwnProperty.call(memoryStore, key)) {
+      return memoryStore[key];
+    }
+    return fallback;
+  }
+
+  function writeStorage(key, val) {
+    memoryStore[key] = val;
+    try {
+      global.localStorage.setItem(key, JSON.stringify(val));
+    } catch (e) {}
+    return val;
+  }
+
+  function escapeHtml(str) {
+    return String(str === null || str === undefined ? "" : str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  function initSeed() {
+    var seed = FindIt.seed;
+    if (!readStorage(KEYS.USER, null)) {
+      writeStorage(KEYS.USER, JSON.parse(JSON.stringify(seed.DEFAULT_USER)));
+    }
+    if (!readStorage(KEYS.COURSES, null)) {
+      writeStorage(KEYS.COURSES, JSON.parse(JSON.stringify(seed.COURSES)));
+    }
+    if (!readStorage(KEYS.ENROLLMENTS, null)) {
+      writeStorage(KEYS.ENROLLMENTS, JSON.parse(JSON.stringify(seed.INITIAL_ENROLLMENTS)));
+    }
+    if (!readStorage(KEYS.LIKED, null)) {
+      writeStorage(KEYS.LIKED, JSON.parse(JSON.stringify(seed.INITIAL_LIKED_IDS)));
+    }
+    if (!readStorage(KEYS.REVIEWS, null)) {
+      writeStorage(KEYS.REVIEWS, JSON.parse(JSON.stringify(seed.INITIAL_REVIEWS)));
+    }
+  }
+
+  function getUser() {
+    initSeed();
+    return readStorage(KEYS.USER, FindIt.seed.DEFAULT_USER);
+  }
+
+  function updateUser(updates) {
+    var current = getUser();
+    var next = Object.assign({}, current, updates || {});
+    if (next.name) {
+      var parts = String(next.name).trim().split(/\s+/);
+      next.initials = ((parts[0] ? parts[0][0] : "F") + (parts[1] ? parts[1][0] : "I")).toUpperCase();
+    }
+    writeStorage(KEYS.USER, next);
+    return next;
+  }
+
+  function getCourses() {
+    initSeed();
+    return readStorage(KEYS.COURSES, FindIt.seed.COURSES);
+  }
+
+  function getCourseBySlugOrId(slugOrId) {
+    var list = getCourses();
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].id === slugOrId || list[i].slug === slugOrId) {
+        return list[i];
+      }
+    }
+    return null;
+  }
+
+  /* When a Teacher logs in / registers via the Login Gate, upsert their course in the catalog so their pastStudentsResult, honors, subject, and price appear on their product card */
+  function registerOrUpdateTeacherCourse(user) {
+    if (!user || user.role !== "teacher") return null;
+    var courses = getCourses();
+    var teacherCourseId = "course-teacher-user";
+    var slug = "teacher-" + (user.handle || "custom-course");
+    var existingIdx = -1;
+    for (var i = 0; i < courses.length; i++) {
+      if (courses[i].id === teacherCourseId) {
+        existingIdx = i;
+        break;
+      }
+    }
+
+    var rawSubject = String(user.subjectCert || "IELTS Academic 8.0+").trim();
+    var detectedCat = "Other";
+    if (/ielts|cefr|english|til/i.test(rawSubject)) detectedCat = "IELTS";
+    else if (/milliy/i.test(rawSubject)) detectedCat = "Milliy Sertifikat";
+    else if (/sat/i.test(rawSubject)) detectedCat = "SAT";
+    else if (/a-level/i.test(rawSubject)) detectedCat = "A-Level";
+    else if (/python|web|frontend|data|it/i.test(rawSubject)) detectedCat = "Tech skills";
+
+    var courseObj = {
+      id: teacherCourseId,
+      slug: slug,
+      title: rawSubject + " — Mualliflik Kursi",
+      category: detectedCat,
+      certificateTarget: rawSubject,
+      creatorId: user.id || "user-1",
+      creatorName: user.name || "Baqbergen Xojanbergenov",
+      creatorHandle: user.handle || "baqbergen-xojanbergenov",
+      teacherHonors: user.honors || "Verified Teacher Qualification",
+      pastStudentsResult: user.pastStudentsResult || "94% o'quvchilar yuqori natija qayd etdi",
+      price: Math.max(50000, Number(user.coursePrice) || 420000),
+      rating: 4.97,
+      reviewCount: 128,
+      subscribers: 340,
+      durationHours: 42,
+      modulesCount: 4,
+      level: "Intermediate",
+      language: "Uzbek",
+      updatedDate: "2026-11-08",
+      iconType: "custom",
+      shortDesc: user.name + " tomonidan yaratilgan maxsus sertifikat tayyorlov kursi (" + (user.honors || "") + ").",
+      sections: [
+        {
+          title: "1-modul: Kirish va Sertifikat Strategiyasi",
+          lessons: [
+            { id: "l-t1", title: "Imtihon talablari va yuqori ball sirlari", type: "video", durationMin: 25, content: "Kursning dastlabki kirish darsi va o'quv rejasi." },
+            { id: "l-t2", title: "Amaliy test va xatolar ustida ishlash", type: "text", durationMin: 35, content: "Avvalgi o'quvchilar tajribasi va metodika." }
+          ]
+        }
+      ]
+    };
+
+    if (existingIdx !== -1) {
+      courses[existingIdx] = courseObj;
+    } else {
+      courses.unshift(courseObj);
+    }
+    writeStorage(KEYS.COURSES, courses);
+    return courseObj;
+  }
+
+  function getEnrollments() {
+    initSeed();
+    return readStorage(KEYS.ENROLLMENTS, []);
+  }
+
+  function getEnrollmentForCourse(courseId) {
+    var list = getEnrollments();
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].courseId === courseId) return list[i];
+    }
+    return null;
+  }
+
+  function applyForCourse(courseId, paymentAdapter) {
+    var course = getCourseBySlugOrId(courseId);
+    if (!course) return null;
+    var list = getEnrollments();
+    var existing = getEnrollmentForCourse(course.id);
+    if (!existing) {
+      var item = {
+        courseId: course.id,
+        userId: getUser().id || "user-1",
+        purchasedAt: "2026-11-08",
+        completedLessonIds: [],
+        paymentMethod: paymentAdapter || "Payme"
+      };
+      list.push(item);
+      writeStorage(KEYS.ENROLLMENTS, list);
+
+      var courses = getCourses();
+      courses.forEach(function (c) {
+        if (c.id === course.id) {
+          c.subscribers = (Number(c.subscribers) || 0) + 1;
+        }
+      });
+      writeStorage(KEYS.COURSES, courses);
+      return item;
+    }
+    return existing;
+  }
+
+  function removeEnrollment(courseId) {
+    var list = getEnrollments().filter(function (e) {
+      return e.courseId !== courseId;
+    });
+    writeStorage(KEYS.ENROLLMENTS, list);
+    return list;
+  }
+
+  function getCourseProgress(courseId) {
+    var course = getCourseBySlugOrId(courseId);
+    if (!course) return { completed: 0, total: 1, percent: 0 };
+    var total = 0;
+    (course.sections || []).forEach(function (s) {
+      total += (s.lessons || []).length;
+    });
+    if (total === 0) total = 1;
+    var enr = getEnrollmentForCourse(course.id);
+    var comp = enr && Array.isArray(enr.completedLessonIds) ? enr.completedLessonIds.length : 0;
+    var pct = Math.min(100, Math.round((comp / total) * 100));
+    return { completed: comp, total: total, percent: pct };
+  }
+
+  function toggleLessonComplete(courseId, lessonId) {
+    var list = getEnrollments();
+    var enr = list.find(function (e) { return e.courseId === courseId; });
+    if (!enr) {
+      enr = {
+        courseId: courseId,
+        userId: getUser().id || "user-1",
+        purchasedAt: "2026-11-08",
+        completedLessonIds: [],
+        paymentMethod: "Direct Apply"
+      };
+      list.push(enr);
+    }
+    var idx = enr.completedLessonIds.indexOf(lessonId);
+    if (idx === -1) {
+      enr.completedLessonIds.push(lessonId);
+    } else {
+      enr.completedLessonIds.splice(idx, 1);
+    }
+    writeStorage(KEYS.ENROLLMENTS, list);
+    return getCourseProgress(courseId);
+  }
+
+  /* Liked Courses (Point 15 & 16) */
+  function getLikedIds() {
+    initSeed();
+    var list = readStorage(KEYS.LIKED, []);
+    return Array.isArray(list) ? list : [];
+  }
+
+  function isCourseLiked(courseId) {
+    return getLikedIds().indexOf(courseId) !== -1;
+  }
+
+  function toggleLikeCourse(courseId) {
+    var list = getLikedIds().slice();
+    var idx = list.indexOf(courseId);
+    var nowLiked = false;
+    if (idx === -1) {
+      list.push(courseId);
+      nowLiked = true;
+    } else {
+      list.splice(idx, 1);
+      nowLiked = false;
+    }
+    writeStorage(KEYS.LIKED, list);
+    return { liked: nowLiked, count: list.length };
+  }
+
+  /* Filters (Point 7 & 8) */
+  function getFilters() {
+    return readStorage(KEYS.FILTERS, {
+      query: "",
+      category: "all",
+      maxPrice: 1500000,
+      minRating: 0
+    });
+  }
+
+  function saveFilters(next) {
+    var merged = Object.assign({}, getFilters(), next || {});
+    writeStorage(KEYS.FILTERS, merged);
+    return merged;
+  }
+
+  /* Activity Heatmap Hours Logging (Point 4 & 5) */
+  function logTodayActivityHours(hoursVal) {
+    var user = getUser();
+    var arr = Array.isArray(user.yearlyActivityHours) && user.yearlyActivityHours.length >= 364
+      ? user.yearlyActivityHours.slice()
+      : FindIt.seed.DEFAULT_USER.yearlyActivityHours.slice();
+    arr[arr.length - 1] = Math.max(0, Number(hoursVal) || 0);
+    user.yearlyActivityHours = arr;
+    writeStorage(KEYS.USER, user);
+    return arr[arr.length - 1];
+  }
+
+  /* Reviews */
+  function getReviews() {
+    initSeed();
+    return readStorage(KEYS.REVIEWS, []);
+  }
+
+  function addReview(courseId, rating, text) {
+    var user = getUser();
+    var all = getReviews();
+    var item = {
+      id: "rev-" + Date.now(),
+      courseId: courseId,
+      userId: user.id || "user-1",
+      userName: user.name || "Student",
+      rating: Math.min(5, Math.max(1, Number(rating) || 5)),
+      text: String(text || "").trim(),
+      createdAt: "2026-11-08",
+      verifiedBuyer: true,
+      creatorReply: null
+    };
+    all.unshift(item);
+    writeStorage(KEYS.REVIEWS, all);
+    return item;
+  }
+
+  function replyToReview(reviewId, replyText) {
+    var all = getReviews();
+    all.forEach(function (r) {
+      if (r.id === reviewId) {
+        r.creatorReply = String(replyText || "").trim();
+      }
+    });
+    writeStorage(KEYS.REVIEWS, all);
+  }
+
+  FindIt.store = {
+    escapeHtml: escapeHtml,
+    initSeed: initSeed,
+    getUser: getUser,
+    updateUser: updateUser,
+    getCourses: getCourses,
+    getCourseBySlugOrId: getCourseBySlugOrId,
+    registerOrUpdateTeacherCourse: registerOrUpdateTeacherCourse,
+    getEnrollments: getEnrollments,
+    getEnrollmentForCourse: getEnrollmentForCourse,
+    applyForCourse: applyForCourse,
+    removeEnrollment: removeEnrollment,
+    getCourseProgress: getCourseProgress,
+    toggleLessonComplete: toggleLessonComplete,
+    getLikedIds: getLikedIds,
+    isCourseLiked: isCourseLiked,
+    toggleLikeCourse: toggleLikeCourse,
+    getFilters: getFilters,
+    saveFilters: saveFilters,
+    logTodayActivityHours: logTodayActivityHours,
+    getReviews: getReviews,
+    addReview: addReview,
+    replyToReview: replyToReview
+  };
+})(window);
+
+/* ==========================================================================
+   FindIT Shared UI Components (Stepik Course Cards, Skeleton Glancing Cards,
+   52-Week Activity Heatmap, Sidebar Folder Tree, Right Profile Panel)
+   ========================================================================== */
+(function (global) {
+  "use strict";
+
+  var FindIt = (global.FindIt = global.FindIt || {});
+  var toastTimer = null;
+
+  function showToast(message) {
+    var toastEl = document.getElementById("status-toast");
+    if (!toastEl) return;
+    toastEl.textContent = message;
+    toastEl.classList.remove("d-none");
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () {
+      toastEl.classList.add("d-none");
+    }, 2600);
+  }
+
+  /* Course Thumbnail Graphic (Matches Image 2 & Image 3 Stepik style) */
+  function renderCourseThumbSvg(iconType) {
+    if (iconType === "data") {
+      /* Matches Image 2: Pandas + Matplotlib + Seaborn wave graphic */
+      return (
+        '<svg width="72" height="72" viewBox="0 0 72 72" fill="none">' +
+          '<path d="M6 48 C 20 18, 36 18, 50 48 C 58 62, 64 56, 68 38" stroke="#EF4444" stroke-width="2.2" fill="none"/>' +
+          '<path d="M6 36 C 22 58, 38 14, 54 36 C 60 44, 65 30, 68 22" stroke="#22C55E" stroke-width="2.2" fill="none"/>' +
+          '<text x="36" y="24" text-anchor="middle" fill="#2563EB" font-size="9" font-weight="800" font-style="italic">pandas</text>' +
+          '<text x="36" y="39" text-anchor="middle" fill="#1D4ED8" font-size="8.5" font-weight="800">matplotlib</text>' +
+          '<text x="36" y="54" text-anchor="middle" fill="#2563EB" font-size="9" font-weight="800" font-style="italic">seaborn</text>' +
+        '</svg>'
+      );
+    }
+    if (iconType === "engineer") {
+      /* Matches Image 3: Circular Data Engineer ecosystem diagram */
+      return (
+        '<svg width="72" height="72" viewBox="0 0 72 72" fill="none">' +
+          '<circle cx="36" cy="36" r="24" stroke="#0EA5E9" stroke-width="2.5" stroke-dasharray="18 6"/>' +
+          '<ellipse cx="36" cy="30" rx="9" ry="4" fill="#1E293B"/>' +
+          '<path d="M27 30v12c0 2.2 4 4 9 4s9-1.8 9-4V30" fill="#334155"/>' +
+          '<circle cx="36" cy="12" r="6" fill="#FACC15"/>' +
+          '<rect x="52" y="22" width="11" height="9" rx="2" fill="#1E293B"/>' +
+          '<circle cx="15" cy="24" r="5" fill="#F97316"/>' +
+          '<rect x="50" y="44" width="10" height="10" rx="1.5" fill="#EAB308"/>' +
+          '<circle cx="36" cy="60" r="5" fill="#10B981"/>' +
+        '</svg>'
+      );
+    }
+    if (iconType === "ielts") {
+      return (
+        '<svg width="68" height="68" viewBox="0 0 68 68" fill="none">' +
+          '<rect x="8" y="10" width="52" height="48" rx="10" fill="rgba(84,101,255,0.12)" stroke="#5465FF" stroke-width="2"/>' +
+          '<text x="34" y="33" text-anchor="middle" fill="#5465FF" font-size="12" font-weight="800">IELTS</text>' +
+          '<text x="34" y="48" text-anchor="middle" fill="#16A34A" font-size="10" font-weight="800">7.5–8.5</text>' +
+        '</svg>'
+      );
+    }
+    if (iconType === "sat") {
+      return (
+        '<svg width="68" height="68" viewBox="0 0 68 68" fill="none">' +
+          '<circle cx="34" cy="34" r="25" fill="rgba(245,158,11,0.14)" stroke="#F59E0B" stroke-width="2.2"/>' +
+          '<text x="34" y="33" text-anchor="middle" fill="#D97706" font-size="12" font-weight="800">SAT</text>' +
+          '<text x="34" y="47" text-anchor="middle" fill="#2563EB" font-size="9.5" font-weight="800">1500+</text>' +
+        '</svg>'
+      );
+    }
+    /* Default Math / Certificate icon */
+    return (
+      '<svg width="68" height="68" viewBox="0 0 68 68" fill="none">' +
+        '<rect x="10" y="10" width="48" height="48" rx="12" fill="rgba(16,185,129,0.14)" stroke="#10B981" stroke-width="2"/>' +
+        '<text x="34" y="39" text-anchor="middle" fill="#059669" font-size="16" font-weight="800">A+ ∑</text>' +
+      '</svg>'
+    );
+  }
+
+  /* Renders 5-Star Rating next to the price (User Clarification #3) */
+  function renderFiveStars(rating) {
+    var r = Math.min(5, Math.max(1, Number(rating) || 5));
+    var fullCount = Math.round(r);
+    var stars = "";
+    for (var i = 1; i <= 5; i++) {
+      stars += i <= fullCount ? "★" : "☆";
+    }
+    return (
+      '<span class="stepik-card__stars" title="Rating ' + r + ' / 5">' +
+        '<span>' + stars + '</span>' +
+        '<span class="ms-1">' + r.toFixed(1) + '</span>' +
+      '</span>'
+    );
+  }
+
+  /**
+   * Point 15 & Clarification #3:
+   * Stepik-style course card (Image 3):
+   * - Top-left: Course title, Teacher name (+ honors), and directly under teacher name:
+   *   past students results + counts of persons and hours of course
+   * - Top-right: Square icon + Like button that glows green on hover with "I like it" description
+   * - Bottom-left: Price + 5-star rating next to price
+   * - Bottom-right: Module count pill badge (e.g., "4 курса") + quick Apply/Open action
+   */
+  function renderStepikCourseCard(course, isBestDeal) {
+    var esc = FindIt.store.escapeHtml;
+    var t = FindIt.i18n.t;
+    var formatUzs = FindIt.i18n.formatUzs;
+    var liked = FindIt.store.isCourseLiked(course.id);
+    var enrolled = FindIt.store.getEnrollmentForCourse(course.id);
+    var valueScore = FindIt.fees.calculateValueScore(course);
+
+    var bestDealHtml = isBestDeal
+      ? '<div class="best-deal-ribbon">' +
+          '<span>' + esc(t("search.best_deal")) + '</span>' +
+        '</div>'
+      : '';
+
+    return (
+      '<div class="col-12 col-md-6 course-item-col">' +
+        '<article class="stepik-course-card ' + (isBestDeal ? "is-best-deal" : "") + '" data-course-id="' + esc(course.id) + '">' +
+          '<div>' +
+            bestDealHtml +
+            '<div class="stepik-card__top">' +
+              '<div class="stepik-card__info">' +
+                '<h3 class="stepik-card__title">' +
+                  '<a href="#/course/' + esc(course.slug) + '">' + esc(course.title) + '</a>' +
+                '</h3>' +
+                '<div class="stepik-card__author">' +
+                  '<span>' + esc(course.creatorName) + '</span>' +
+                '</div>' +
+                (course.teacherHonors
+                  ? '<div class="stepik-card__honors">🏅 ' + esc(course.teacherHonors) + '</div>'
+                  : ''
+                ) +
+                /* Directly under the teacher name: counts of persons, hours of course, AND past students results */
+                '<div class="stepik-card__meta-stats">' +
+                  '<span class="stepik-card__meta-item" title="Students enrolled">' +
+                    '<svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="5" r="3"/><path d="M2 14c0-3 2.7-5 6-5s6 2 6 5"/></svg>' +
+                    '<span>' + esc(course.subscribers) + '</span>' +
+                  '</span>' +
+                  '<span class="stepik-card__meta-item" title="Course hours">' +
+                    '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="6"/><polyline points="8 4.5 8 8 10.5 9.5"/></svg>' +
+                    '<span>' + esc(course.durationHours) + ' ч</span>' +
+                  '</span>' +
+                  '<span class="stepik-card__meta-item" title="Reviews">' +
+                    '<span>💬 ' + esc(course.reviewCount) + '</span>' +
+                  '</span>' +
+                '</div>' +
+                '<div class="stepik-card__student-result">' +
+                  '<span>🎓 ' + esc(course.pastStudentsResult || "94% scored A/A+ in 2026") + '</span>' +
+                '</div>' +
+              '</div>' +
+
+              /* Top-right corner: Square graphic + Like button with green glow & "I like it" tooltip */
+              '<div class="stepik-card__thumb-wrap">' +
+                renderCourseThumbSvg(course.iconType) +
+                '<button type="button" class="stepik-like-btn js-like-course-btn ' + (liked ? "is-liked" : "") + '" data-course-id="' + esc(course.id) + '" aria-label="I like it">' +
+                  '<span class="stepik-like-btn__tooltip">' + esc(t("card.i_like_it")) + '</span>' +
+                  '<svg width="17" height="17" viewBox="0 0 24 24" fill="' + (liked ? "currentColor" : "none") + '" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">' +
+                    '<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>' +
+                  '</svg>' +
+                '</button>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+
+          /* Bottom bar: Price + 5-star rating next to price on left, module badge + action button on right */
+          '<div class="stepik-card__bottom">' +
+            '<div class="stepik-card__price-wrap">' +
+              '<span class="stepik-card__price">' + esc(formatUzs(course.price)) + '</span>' +
+              renderFiveStars(course.rating) +
+            '</div>' +
+            '<div class="d-flex align-items-center gap-2">' +
+              '<span class="stepik-card__module-pill">' + esc(course.modulesCount || 4) + ' ' + esc(t("card.modules")) + '</span>' +
+              (enrolled
+                ? '<a href="#/courses/' + esc(course.slug) + '" class="btn btn-sm btn-primary rounded-pill px-3" style="font-size:0.74rem;">' + esc(t("card.continue_btn")) + '</a>'
+                : '<button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3 js-open-checkout" data-course-id="' + esc(course.id) + '" style="font-size:0.74rem;">' + esc(t("card.apply_btn")) + '</button>'
+              ) +
+            '</div>' +
+          '</div>' +
+        '</article>' +
+      '</div>'
+    );
+  }
+
+  /**
+   * Point 14 & Image 2:
+   * Stepik Skeleton Template with Glancing Shimmer Effect
+   */
+  function renderSkeletonGrid(count) {
+    var n = count || 4;
+    var cards = "";
+    for (var i = 0; i < n; i++) {
+      cards +=
+        '<div class="col-12 col-md-6">' +
+          '<div class="stepik-skeleton-card" aria-hidden="true">' +
+            '<div class="d-flex justify-content-between align-items-start gap-3">' +
+              '<div class="flex-grow-1">' +
+                '<div class="skel-bar mb-2" style="width: 78%; height: 22px;"></div>' +
+                '<div class="skel-bar mb-3" style="width: 58%; height: 18px;"></div>' +
+                '<div class="skel-bar" style="width: 44%; height: 14px;"></div>' +
+              '</div>' +
+              '<div class="skel-thumb">' +
+                '<svg width="36" height="36" viewBox="0 0 40 40" fill="none" opacity="0.28">' +
+                  '<circle cx="20" cy="20" r="16" stroke="currentColor" stroke-width="4"/>' +
+                  '<path d="M13 24l14-8" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>' +
+                '</svg>' +
+              '</div>' +
+            '</div>' +
+            '<div>' +
+              '<div class="skel-bar mb-2" style="width: 38%; height: 14px;"></div>' +
+              '<div class="skel-bar" style="width: 24%; height: 22px;"></div>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+    }
+    return '<div class="row g-3">' + cards + '</div>';
+  }
+
+  /**
+   * Point 5 & Image 1 & Clarification #4:
+   * Stepik 52-Week Activity Heatmap
+   * - Glowing Blue in Light Mode, Glowing Bright Amber Yellow in Night Mode
+   * - Brightness level (1..4) depends on hours spent on the app that day
+   * - Red square outline on Today's cell (index 363)
+   */
+  function getHeatLevelForHours(hours) {
+    var h = Number(hours) || 0;
+    if (h <= 0) return 0;
+    if (h <= 1.0) return 1;
+    if (h <= 2.2) return 2;
+    if (h <= 3.5) return 3;
+    return 4;
+  }
+
+  function renderProfileSidebarSkeleton(isStaticRight) {
+    var cells = "";
+    for (var i = 0; i < 112; i++) {
+      cells += '<div class="skeleton-heat-cell"></div>';
+    }
+    var extraCls = isStaticRight ? " stepik-skeleton-profile--static-right" : "";
+    return (
+      '<div class="stepik-skeleton-profile' + extraCls + '" data-testid="skeleton-profile-sidebar" aria-hidden="true">' +
+        '<div>' +
+          '<div class="d-flex justify-content-between align-items-center mb-3">' +
+            '<div class="skel-bar" style="width: 48%; height: 18px;"></div>' +
+            '<div class="skel-bar" style="width: 28%; height: 20px; border-radius: 999px;"></div>' +
+          '</div>' +
+          '<div class="text-center p-3 mb-3 rounded-3" style="background: var(--surface-muted); border: 1px solid var(--border-hairline);">' +
+            '<div class="skeleton-avatar mx-auto mb-2"></div>' +
+            '<div class="skel-bar mx-auto mb-2" style="width: 62%; height: 16px;"></div>' +
+            '<div class="skel-bar mx-auto mb-2" style="width: 46%; height: 12px;"></div>' +
+            '<div class="skel-bar mx-auto" style="width: 54%; height: 18px; border-radius: 999px;"></div>' +
+          '</div>' +
+          '<div class="skeleton-stat-grid mb-3">' +
+            '<div class="skeleton-stat-box"></div>' +
+            '<div class="skeleton-stat-box"></div>' +
+            '<div class="skeleton-stat-box"></div>' +
+          '</div>' +
+          '<div class="mb-3">' +
+            '<div class="d-flex justify-content-between align-items-center mb-2">' +
+              '<div class="skel-bar" style="width: 46%; height: 12px;"></div>' +
+              '<div class="skel-bar" style="width: 24%; height: 12px;"></div>' +
+            '</div>' +
+            '<div class="skeleton-heatmap-box">' + cells + '</div>' +
+          '</div>' +
+          '<div class="pt-3" style="border-top: 1px solid var(--border-hairline);">' +
+            '<div class="skel-bar mb-2" style="width: 52%; height: 12px;"></div>' +
+            '<div class="skeleton-course-row"></div>' +
+            '<div class="skeleton-course-row"></div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="mt-auto pt-3" style="border-top: 1px solid var(--border-hairline);">' +
+          '<div class="skel-bar" style="width: 100%; height: 36px; border-radius: 999px;"></div>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function renderMainMenuSkeleton() {
+    return (
+      '<div class="main-menu-with-static-profile" data-testid="skeleton-main-menu">' +
+        '<div>' +
+          '<div class="stepik-skeleton-topbar">' +
+            '<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">' +
+              '<div style="width: 220px;">' +
+                '<div class="skel-bar mb-2" style="width: 85%; height: 18px;"></div>' +
+                '<div class="skel-bar" style="width: 60%; height: 12px;"></div>' +
+              '</div>' +
+              '<div class="skeleton-search-pill" style="width: 280px; height: 40px;"></div>' +
+            '</div>' +
+            '<div class="d-flex gap-2 flex-wrap">' +
+              '<div class="skel-bar" style="width: 78px; height: 30px; border-radius: 999px;"></div>' +
+              '<div class="skel-bar" style="width: 92px; height: 30px; border-radius: 999px;"></div>' +
+              '<div class="skel-bar" style="width: 98px; height: 30px; border-radius: 999px;"></div>' +
+              '<div class="skel-bar" style="width: 84px; height: 30px; border-radius: 999px;"></div>' +
+            '</div>' +
+          '</div>' +
+          renderSkeletonGrid(6) +
+        '</div>' +
+        renderProfileSidebarSkeleton(true) +
+      '</div>'
+    );
+  }
+
+  function renderStepikYearlyHeatmap() {
+    var user = FindIt.store.getUser();
+    var esc = FindIt.store.escapeHtml;
+    var t = FindIt.i18n.t;
+    var rawArr = (user && Array.isArray(user.yearlyActivityHours) && user.yearlyActivityHours.length >= 364)
+      ? user.yearlyActivityHours
+      : FindIt.seed.DEFAULT_USER.yearlyActivityHours;
+
+    /* Ensure 546 days (78 weeks x 7 days) for the extended 18-month activity calendar */
+    var hoursArr = rawArr.slice();
+    while (hoursArr.length < 546) {
+      hoursArr.unshift((hoursArr.length % 11 === 0) ? 2.0 : 0);
+    }
+    if (hoursArr.length > 546) {
+      hoursArr = hoursArr.slice(hoursArr.length - 546);
+    }
+
+    var totalDays = 546;
+    var cellsHtml = "";
+    var activeDays = 0;
+    var totalHours = 0;
+    var currentStreak = 0;
+    var longestStreak = 0;
+    var tempStreak = 0;
+
+    for (var i = 0; i < totalDays; i++) {
+      var hrs = Number(hoursArr[i]) || 0;
+      if (hrs > 0) {
+        activeDays++;
+        totalHours += hrs;
+        tempStreak++;
+        if (tempStreak > longestStreak) longestStreak = tempStreak;
+      } else {
+        tempStreak = 0;
+      }
+      var lvl = getHeatLevelForHours(hrs);
+      var isToday = i === totalDays - 1;
+      cellsHtml +=
+        '<div class="stepik-heat-cell ' + (isToday ? "is-today" : "") + '" ' +
+        'data-level="' + lvl + '" data-day-index="' + i + '" data-hours="' + hrs + '" ' +
+        'title="' + (isToday ? "Bugun (Today): " : "Kun #" + (i + 1) + ": ") + hrs + ' soat faollik"></div>';
+    }
+
+    for (var s = totalDays - 1; s >= 0; s--) {
+      if ((Number(hoursArr[s]) || 0) > 0) currentStreak++;
+      else break;
+    }
+
+    var months18 = [
+      "июнь '25", "июль", "авг.", "сент.", "окт.", "нояб.", "дек.",
+      "янв. '26", "февр.", "март", "апр.", "май", "июнь", "июль", "авг.", "сент.", "окт.", "нояб."
+    ];
+    var monthsHtml = months18.map(function (m) {
+      return '<span>' + m + '</span>';
+    }).join("");
+
+    var weekdays = ["Dush", "Sesh", "Chor", "Pay", "Jum", "Shan", "Yak"];
+    var weekdaysHtml = weekdays.map(function (w) {
+      return '<span>' + w + '</span>';
+    }).join("");
+
+    /* 12-Month Monthly Breakdown Strip below the extended grid */
+    var recent12Names = ["Dek", "Yan", "Fev", "Mar", "Apr", "May", "Iyun", "Iyul", "Avg", "Sen", "Okt", "Noy"];
+    var monthlyCardsHtml = recent12Names.map(function (mName, mIdx) {
+      var startIdx = 546 - 364 + mIdx * 30;
+      var mHours = 0;
+      var mActive = 0;
+      for (var d = startIdx; d < Math.min(546, startIdx + 30); d++) {
+        var hVal = Number(hoursArr[d]) || 0;
+        if (hVal > 0) {
+          mHours += hVal;
+          mActive++;
+        }
+      }
+      var barPct = Math.min(100, Math.round((mHours / 36) * 100));
+      return (
+        '<div class="col-6 col-sm-4 col-md-2 col-xl-1">' +
+          '<div class="p-2 rounded-3 text-center h-100" style="background:var(--surface-bg); border:1px solid var(--border-color);">' +
+            '<div class="fw-bold small">' + mName + '</div>' +
+            '<div class="small fw-semibold" style="color:var(--accent-secondary); font-size:0.74rem;">' + Math.round(mHours * 10) / 10 + 's</div>' +
+            '<div class="progress my-1" style="height:4px; background:var(--border-color);">' +
+              '<div class="progress-bar" style="width:' + barPct + '%; background:var(--accent-secondary);"></div>' +
+            '</div>' +
+            '<div class="text-muted" style="font-size:0.65rem;">' + mActive + ' kun</div>' +
+          '</div>' +
+        '</div>'
+      );
+    }).join("");
+
+    var todayHours = Number(hoursArr[totalDays - 1]) || 0;
+
+    return (
+      '<div class="stepik-activity-box mb-4" data-testid="extended-activity-calendar">' +
+        '<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">' +
+          '<div>' +
+            '<div class="d-flex align-items-center gap-2 mb-1">' +
+              '<h3 class="h5 fw-bold mb-0">' + esc(t("profile.year_activity")) + '</h3>' +
+              '<span class="badge rounded-pill" style="background:var(--accent-pill-bg); color:var(--accent-pill-text); font-size:0.72rem;">Kengaytirilgan · 78 hafta (546 kun)</span>' +
+            '</div>' +
+            '<div class="small text-muted">' +
+              'Faol kunlar: <strong>' + activeDays + ' kun</strong> · ' +
+              'Jami o’quv soati: <strong>' + Math.round(totalHours * 10) / 10 + ' soat</strong> · ' +
+              'Joriy streak: <strong>🔥 ' + currentStreak + ' kun</strong> · ' +
+              'Rekord streak: <strong>🏆 ' + longestStreak + ' kun</strong>' +
+            '</div>' +
+          '</div>' +
+          '<div class="d-flex align-items-center flex-wrap gap-2">' +
+            '<span class="small fw-semibold text-muted">' + esc(t("profile.log_hours")) + '</span>' +
+            [0, 1, 2, 3, 5].map(function (h) {
+              var activeBtn = Math.round(todayHours) === h;
+              return (
+                '<button type="button" class="btn btn-sm ' + (activeBtn ? "btn-primary" : "btn-outline-primary") + ' rounded-pill px-2 py-1 js-log-today-hours" data-hours="' + h + '" style="font-size:0.72rem;">' +
+                  (h === 0 ? "0s" : h + " soat") +
+                '</button>'
+              );
+            }).join("") +
+          '</div>' +
+        '</div>' +
+
+        '<div class="stepik-heatmap-scroll">' +
+          '<div class="stepik-heatmap-layout">' +
+            '<div class="stepik-weekdays-col">' + weekdaysHtml + '</div>' +
+            '<div class="stepik-heatmap-grid" id="stepik-yearly-grid" style="--heatmap-weeks: 78;">' +
+              cellsHtml +
+            '</div>' +
+          '</div>' +
+          '<div class="stepik-months-row" style="--heatmap-months: 18;">' +
+            monthsHtml +
+          '</div>' +
+        '</div>' +
+
+        /* Monthly Activity Breakdown Strip inside the extended calendar */
+        '<div class="mt-3 pt-3 border-top">' +
+          '<div class="d-flex justify-content-between align-items-center mb-2">' +
+            '<span class="small fw-bold">Oylar kesimida o’quv soatlari va faollik dinamikasi (12 oylik tahlil)</span>' +
+            '<span class="small text-muted">Katakchani bosib soatni o’zgartirishingiz mumkin</span>' +
+          '</div>' +
+          '<div class="row g-2">' +
+            monthlyCardsHtml +
+          '</div>' +
+        '</div>' +
+
+        '<div class="d-flex flex-wrap justify-content-between align-items-center mt-3 pt-2 border-top small text-muted">' +
+          '<div class="d-flex align-items-center gap-2">' +
+            '<span>Kamroq (0s)</span>' +
+            '<span class="stepik-heat-cell" data-level="0" style="display:inline-block; width:13px; height:13px;"></span>' +
+            '<span class="stepik-heat-cell" data-level="1" style="display:inline-block; width:13px; height:13px;"></span>' +
+            '<span class="stepik-heat-cell" data-level="2" style="display:inline-block; width:13px; height:13px;"></span>' +
+            '<span class="stepik-heat-cell" data-level="3" style="display:inline-block; width:13px; height:13px;"></span>' +
+            '<span class="stepik-heat-cell" data-level="4" style="display:inline-block; width:13px; height:13px;"></span>' +
+            '<span>Ko’proq (4+ soat)</span>' +
+          '</div>' +
+          '<div>' + esc(t("profile.next_day_utc")) + '</div>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  /**
+   * Point 2 + Elongated Right-Hand Side Profile Panel on Main Menu (Takes up the entire right side)
+   */
+  function renderRightProfileSidebar() {
+    var user = FindIt.store.getUser();
+    var esc = FindIt.store.escapeHtml;
+    var t = FindIt.i18n.t;
+    var enrollments = FindIt.store.getEnrollments();
+    var likedIds = FindIt.store.getLikedIds();
+    var certs = (user && user.certificates) || [];
+    var rawArr = (user && Array.isArray(user.yearlyActivityHours) && user.yearlyActivityHours.length >= 364)
+      ? user.yearlyActivityHours
+      : FindIt.seed.DEFAULT_USER.yearlyActivityHours;
+
+    /* Last 112 days (16 weeks x 7 days) compact activity heatmap */
+    var startOffset = rawArr.length - 112;
+    var recentSlice = rawArr.slice(startOffset);
+    var miniCells = "";
+    var activeCount = 0;
+    for (var i = 0; i < recentSlice.length; i++) {
+      var hrs = Number(recentSlice[i]) || 0;
+      if (hrs > 0) activeCount++;
+      var lvl = getHeatLevelForHours(hrs);
+      var isToday = i === recentSlice.length - 1;
+      var absIdx = startOffset + i;
+      miniCells += '<div class="mini-heat-cell ' + (isToday ? "is-today" : "") + '" data-level="' + lvl + '" data-day-index="' + absIdx + '" title="' + hrs + ' soat"></div>';
+    }
+
+    var activenessPercent = Math.min(100, Math.round((activeCount / 30) * 100));
+    var todayHours = Number(rawArr[rawArr.length - 1]) || 0;
+
+    var enrolledSummaryHtml = enrollments.slice(0, 3).map(function (enr) {
+      var c = FindIt.store.getCourseBySlugOrId(enr.courseId);
+      if (!c) return "";
+      var prog = FindIt.store.getCourseProgress(c.id);
+      return (
+        '<a href="#/courses/' + esc(c.slug) + '" class="d-block text-decoration-none p-2 rounded-3 mb-2" style="background:var(--surface-bg); border:1px solid var(--border-color); color:var(--text-main);">' +
+          '<div class="d-flex justify-content-between align-items-center mb-1">' +
+            '<span class="small fw-bold text-truncate" style="max-width: 175px;">📁 ' + esc(c.title) + '</span>' +
+            '<span class="badge rounded-pill" style="background:var(--accent-pill-bg); color:var(--accent-pill-text); font-size:0.65rem;">' + prog.percent + '%</span>' +
+          '</div>' +
+          '<div class="progress" style="height: 5px; background:var(--border-color);">' +
+            '<div class="progress-bar" style="width:' + prog.percent + '%; background:var(--accent-secondary);"></div>' +
+          '</div>' +
+        '</a>'
+      );
+    }).join("");
+
+    return (
+      '<aside class="profile-panel profile-panel--static-right" data-testid="static-right-profile">' +
+        '<div>' +
+          /* 1. Header & Role Badge */
+          '<div class="d-flex justify-content-between align-items-center mb-3">' +
+            '<h3 class="h6 fw-bold mb-0">' + esc(t("profile.right_title")) + '</h3>' +
+            '<span class="badge rounded-pill" style="background:var(--accent-pill-bg); color:var(--accent-pill-text); font-weight:700;">' +
+              esc(user.role === "teacher" ? "👨‍🏫 Teacher" : "🎓 Student") +
+            '</span>' +
+          '</div>' +
+
+          /* 2. Essential User Identity */
+          '<div class="text-center p-3 mb-3 rounded-3" style="background:var(--surface-bg); border:1px solid var(--border-color);">' +
+            '<div class="avatar-circle mx-auto mb-2">' + esc(user.initials || "BX") + '</div>' +
+            '<h4 class="h6 fw-bold mb-0">' + esc(user.name) + '</h4>' +
+            '<div class="small text-muted mb-1">' + esc(user.email) + '</div>' +
+            '<div class="small fw-semibold" style="color:var(--accent-secondary); font-size:0.75rem;">' +
+              esc(user.role === "teacher" ? user.subjectCert : user.major) +
+            '</div>' +
+          '</div>' +
+
+          /* 3. Core Course Stats (3 boxes) */
+          '<div class="row g-2 text-center mb-3">' +
+            '<div class="col-4">' +
+              '<div class="p-2 rounded-3 h-100" style="background:var(--surface-bg); border:1px solid var(--border-color);">' +
+                '<div class="fw-bold">' + enrollments.length + '</div>' +
+                '<div class="text-muted" style="font-size:0.66rem;">' + esc(t("profile.courses_stat")) + '</div>' +
+              '</div>' +
+            '</div>' +
+            '<div class="col-4">' +
+              '<div class="p-2 rounded-3 h-100" style="background:var(--surface-bg); border:1px solid var(--border-color);">' +
+                '<div class="fw-bold">' + likedIds.length + '</div>' +
+                '<div class="text-muted" style="font-size:0.66rem;">♥ Liked</div>' +
+              '</div>' +
+            '</div>' +
+            '<div class="col-4">' +
+              '<div class="p-2 rounded-3 h-100" style="background:var(--surface-bg); border:1px solid var(--border-color);">' +
+                '<div class="fw-bold">' + certs.length + '</div>' +
+                '<div class="text-muted" style="font-size:0.66rem;">' + esc(t("profile.certs_stat")) + '</div>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+
+          /* 4. Activeness Rate & Compact Stepik Heatmap */
+          '<div class="mb-3 p-3 rounded-3" style="background:var(--surface-bg); border:1px solid var(--border-color);">' +
+            '<div class="d-flex justify-content-between align-items-center mb-2">' +
+              '<span class="small fw-bold">' + esc(t("profile.activeness")) + '</span>' +
+              '<span class="badge rounded-pill" style="background:var(--accent-pill-bg); color:var(--accent-pill-text); font-size:0.68rem;">' + activenessPercent + '% Active</span>' +
+            '</div>' +
+            '<div class="mini-heatmap-grid mb-2">' + miniCells + '</div>' +
+            '<div class="d-flex justify-content-between align-items-center">' +
+              '<span class="text-muted" style="font-size:0.68rem;">Bugun: ' + todayHours + ' soat</span>' +
+              '<a href="#/profile" class="small fw-bold text-decoration-none" style="color:var(--accent-secondary); font-size:0.72rem;">Kalendar →</a>' +
+            '</div>' +
+          '</div>' +
+
+          /* 5. Active Enrolled Courses Progress */
+          '<div>' +
+            '<div class="d-flex justify-content-between align-items-center mb-2">' +
+              '<span class="small fw-bold">Faol kurslaringiz</span>' +
+              '<a href="#/courses" class="small text-decoration-none fw-semibold" style="color:var(--accent-secondary); font-size:0.72rem;">Papka (' + enrollments.length + ') →</a>' +
+            '</div>' +
+            (enrolledSummaryHtml || '<div class="small text-muted">Hozircha kursga yozilmagansiz.</div>') +
+          '</div>' +
+        '</div>' +
+
+        /* Bottom Action */
+        '<div class="mt-auto pt-3 border-top">' +
+          '<a href="#/profile" class="btn btn-primary btn-sm rounded-pill w-100 py-2 fw-bold">Profilni ochish →</a>' +
+        '</div>' +
+      '</aside>'
+    );
+  }
+
+  function updateSidebarFolderAndCounts() {
+    var esc = FindIt.store.escapeHtml;
+    var user = FindIt.store.getUser();
+    var enrollments = FindIt.store.getEnrollments();
+    var likedIds = FindIt.store.getLikedIds();
+
+    var folderEl = document.getElementById("sidebar-courses-folder");
+    var countEl = document.getElementById("applied-courses-count");
+    var likedCountEl = document.getElementById("liked-courses-count");
+    var studioItem = document.getElementById("sidebar-studio-item");
+
+    if (countEl) countEl.textContent = String(enrollments.length);
+    if (likedCountEl) likedCountEl.textContent = String(likedIds.length);
+
+    /* Point 3: Studio is shown ONLY if they applied/logged in as a Teacher */
+    if (studioItem) {
+      if (user && user.role === "teacher") {
+        studioItem.classList.remove("d-none");
+      } else {
+        studioItem.classList.add("d-none");
+      }
+    }
+
+    if (!folderEl) return;
+    if (!enrollments.length) {
+      folderEl.innerHTML =
+        '<div class="small px-2 py-1" style="color:var(--sidebar-muted); font-size:0.72rem;">Hozircha yozilgan kurs yo\'q</div>';
+      return;
+    }
+
+    var currentHash = (FindIt.router && FindIt.router.getActiveHash ? FindIt.router.getActiveHash() : (global.location.hash || "#/"));
+    folderEl.innerHTML = enrollments.map(function (enr) {
+      var c = FindIt.store.getCourseBySlugOrId(enr.courseId);
+      if (!c) return "";
+      var shortName = c.title.length > 25 ? c.title.slice(0, 23) + "…" : c.title;
+      var targetHash = "#/courses/" + c.slug;
+      var isActive = currentHash === targetHash;
+      return (
+        '<a href="' + esc(targetHash) + '" class="folder-tree__item ' + (isActive ? "is-active" : "") + '" title="' + esc(c.title) + '">' +
+          '<svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor" style="flex-shrink:0;">' +
+            '<path d="M1 3.5A1.5 1.5 0 0 1 2.5 2h2.764c.958 0 1.76.56 2.311 1.184C7.985 3.648 8.48 4 9 4h4.5A1.5 1.5 0 0 1 15 5.5v7a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 12.5v-9z"/>' +
+          '</svg>' +
+          '<span class="text-truncate">' + esc(shortName) + '</span>' +
+        '</a>'
+      );
+    }).join("");
+  }
+
+  /* Open Checkout / Apply Drawer */
+  function openCheckoutDrawer(courseId) {
+    var course = FindIt.store.getCourseBySlugOrId(courseId);
+    if (!course) return;
+    var esc = FindIt.store.escapeHtml;
+    var formatUzs = FindIt.i18n.formatUzs;
+
+    var bodyEl = document.getElementById("checkout-offcanvas-body");
+    var drawerEl = document.getElementById("checkout-offcanvas");
+    if (!bodyEl || !drawerEl) return;
+
+    bodyEl.innerHTML =
+      '<div class="mb-3">' +
+        '<span class="badge rounded-pill mb-2" style="background:var(--accent-pill-bg); color:var(--accent-pill-text);">' + esc(course.category) + '</span>' +
+        '<h4 class="h6 fw-bold mb-1">' + esc(course.title) + '</h4>' +
+        '<div class="small text-muted">O\'qituvchi: ' + esc(course.creatorName) + '</div>' +
+        '<div class="small text-muted mt-1">🎓 ' + esc(course.pastStudentsResult) + '</div>' +
+      '</div>' +
+      '<div class="card p-3 mb-3">' +
+        '<div class="d-flex justify-content-between align-items-center mb-2">' +
+          '<span class="small text-muted">Kurs narxi:</span>' +
+          '<span class="fw-bold">' + esc(formatUzs(course.price)) + '</span>' +
+        '</div>' +
+        '<div class="d-flex justify-content-between align-items-center pt-2 border-top">' +
+          '<span class="fw-bold">Jami to\'lov:</span>' +
+          '<span class="h6 fw-bold mb-0" style="color:var(--accent-secondary);">' + esc(formatUzs(course.price)) + '</span>' +
+        '</div>' +
+      '</div>' +
+      '<form id="checkout-demo-form" data-course-id="' + esc(course.id) + '">' +
+        '<div class="mb-3">' +
+          '<label class="form-label small fw-bold">To\'lov tizimini tanlang:</label>' +
+          '<div class="d-flex flex-column gap-2">' +
+            '<label class="card p-2 d-flex flex-row align-items-center gap-2" style="cursor:pointer;">' +
+              '<input type="radio" name="paymentAdapter" value="Payme" checked class="form-check-input m-0">' +
+              '<span class="small fw-bold">Payme — Xavfsiz to\'lov</span>' +
+            '</label>' +
+            '<label class="card p-2 d-flex flex-row align-items-center gap-2" style="cursor:pointer;">' +
+              '<input type="radio" name="paymentAdapter" value="Click Up" class="form-check-input m-0">' +
+              '<span class="small fw-bold">Click Up — Tezkor to\'lov</span>' +
+            '</label>' +
+            '<label class="card p-2 d-flex flex-row align-items-center gap-2" style="cursor:pointer;">' +
+              '<input type="radio" name="paymentAdapter" value="Uzum Bank" class="form-check-input m-0">' +
+              '<span class="small fw-bold">Uzum Bank / Humo</span>' +
+            '</label>' +
+          '</div>' +
+        '</div>' +
+        '<button type="submit" class="btn btn-primary w-100 rounded-pill py-2">' +
+          'Kursga yozilish (Apply) · ' + esc(formatUzs(course.price)) +
+        '</button>' +
+      '</form>';
+
+    drawerEl.classList.add("show");
+    drawerEl.style.visibility = "visible";
+    drawerEl.setAttribute("aria-modal", "true");
+    drawerEl.removeAttribute("aria-hidden");
+    var backdrop = document.getElementById("offcanvas-backdrop");
+    if (backdrop) backdrop.classList.add("is-open");
+  }
+
+  function closeAllDrawers() {
+    var el = document.getElementById("checkout-offcanvas");
+    if (el) {
+      el.classList.remove("show");
+      el.style.visibility = "hidden";
+      el.setAttribute("aria-hidden", "true");
+    }
+    var backdrop = document.getElementById("offcanvas-backdrop");
+    if (backdrop) backdrop.classList.remove("is-open");
+  }
+
+  FindIt.ui = {
+    showToast: showToast,
+    renderCourseThumbSvg: renderCourseThumbSvg,
+    renderFiveStars: renderFiveStars,
+    renderStepikCourseCard: renderStepikCourseCard,
+    renderSkeletonGrid: renderSkeletonGrid,
+    renderProfileSidebarSkeleton: renderProfileSidebarSkeleton,
+    renderMainMenuSkeleton: renderMainMenuSkeleton,
+    renderStepikYearlyHeatmap: renderStepikYearlyHeatmap,
+    renderRightProfileSidebar: renderRightProfileSidebar,
+    updateSidebarFolderAndCounts: updateSidebarFolderAndCounts,
+    openCheckoutDrawer: openCheckoutDrawer,
+    closeAllDrawers: closeAllDrawers
+  };
+})(window);
+
+/* ==========================================================================
+   FindIT Views:
+   1. Main Menu (`#/`) — Search bar + Category/Price/Rating filters + Combined
+      Value Score ranking with #1 marked as "Best Deal / Most Recommended" +
+      Right-hand Profile & Activeness panel
+   2. Courses Folder Explorer (`#/courses` & `#/courses/:slug`) — Sub-themes for
+      each applied course
+   3. Liked Courses (`#/liked`) — Courses the user has liked with heart button
+   4. Stepik Profile (`#/profile`) — 52-week blue/yellow glowing activity heatmap
+      + Earned Certificates
+   5. Teacher Studio (`#/studio`) — Course activeness, total profit made, and
+      user feedback reviews
+   6. Settings (`#/settings`) — Light/Night Mode (VS Code Dark + Bright Amber Yellow),
+      Notification toggles, Video playback defaults, Account/Role switch
+   7. Course Detail (`#/course/:slug`)
+   ========================================================================== */
+(function (global) {
+  "use strict";
+
+  var FindIt = (global.FindIt = global.FindIt || {});
+  FindIt.views = {};
+
+  function filterAndSortCoursesByValue() {
+    var f = FindIt.store.getFilters();
+    var all = FindIt.store.getCourses();
+    var q = String(f.query || "").trim().toLowerCase();
+
+    var filtered = all.filter(function (c) {
+      if (f.category && f.category !== "all" && c.category !== f.category) {
+        return false;
+      }
+      if (f.maxPrice && Number(c.price) > Number(f.maxPrice)) {
+        return false;
+      }
+      if (f.minRating && Number(c.rating) < Number(f.minRating)) {
+        return false;
+      }
+      if (q) {
+        var hay = [
+          c.title,
+          c.creatorName,
+          c.category,
+          c.certificateTarget,
+          c.teacherHonors,
+          c.pastStudentsResult
+        ].join(" ").toLowerCase();
+        if (hay.indexOf(q) === -1) return false;
+      }
+      return true;
+    });
+
+    /* Point 7 & Clarification #5: Sort from best to worst by Combined Value Score */
+    filtered.sort(function (a, b) {
+      return FindIt.fees.calculateValueScore(b) - FindIt.fees.calculateValueScore(a);
+    });
+
+    return filtered;
+  }
+
+  /* 1. Main Menu View (`#/`) */
+  function renderMainMenuView() {
+    var esc = FindIt.store.escapeHtml;
+    var t = FindIt.i18n.t;
+    var formatUzs = FindIt.i18n.formatUzs;
+    var f = FindIt.store.getFilters();
+    var sortedCourses = filterAndSortCoursesByValue();
+
+    var categories = [
+      "all",
+      "IELTS",
+      "Milliy Sertifikat",
+      "SAT",
+      "A-Level",
+      "Tech skills",
+      "Data Science & AI",
+      "Grafik Dizayn",
+      "Biznes & Moliya",
+      "Chet tillari",
+      "Kiberxavfsizlik"
+    ];
+    var categoryChipsHtml = categories.map(function (cat) {
+      var active = (f.category || "all") === cat;
+      return (
+        '<button type="button" class="filter-chip js-cat-chip ' + (active ? "is-active" : "") + '" data-category="' + esc(cat) + '">' +
+          esc(cat === "all" ? t("search.cat_all") : cat) +
+        '</button>'
+      );
+    }).join("");
+
+    var cardsHtml = sortedCourses.length
+      ? sortedCourses.map(function (c, idx) {
+          /* First option is marked as the Best Deal / Most Recommended in the market */
+          return FindIt.ui.renderStepikCourseCard(c, idx === 0);
+        }).join("")
+      : '<div class="col-12"><div class="card p-4 text-center text-muted">Qidiruv va filtr bo\'yicha kurs topilmadi. Filtrlarni tiklab ko\'ring.</div></div>';
+
+    return (
+      '<div class="main-menu-with-static-profile">' +
+        /* Left Main Column: Search Bar, Category & Price/Rate Filters, Elastic 100-Course List */
+        '<div>' +
+          /* Point 2 & 8: Search bar on top + Category, Price, and Rating filters */
+          '<div class="search-bar-wrap mb-3">' +
+            '<div class="input-group flex-grow-1">' +
+              '<span class="input-group-text">' +
+                '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="20" y1="20" x2="16.2" y2="16.2"/></svg>' +
+              '</span>' +
+              '<input type="text" id="main-search-input" class="form-control" value="' + esc(f.query || "") + '" placeholder="' + esc(t("search.placeholder")) + '" autocomplete="off">' +
+              (f.query
+                ? '<button type="button" class="btn btn-sm text-muted border-0 px-3" id="clear-search-btn" title="Clear">✕</button>'
+                : ''
+              ) +
+            '</div>' +
+          '</div>' +
+
+          /* Category Chips & Price / Rating Filters Bar */
+          '<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">' +
+            '<div class="d-flex flex-wrap gap-2">' +
+              categoryChipsHtml +
+            '</div>' +
+            '<div class="d-flex flex-wrap align-items-center gap-2">' +
+              '<select id="filter-max-price" class="form-select form-select-sm rounded-pill px-3" style="width:auto;" aria-label="Filter by price">' +
+                '<option value="1500000" ' + (Number(f.maxPrice) >= 1000000 ? "selected" : "") + '>' + esc(t("search.price_all")) + '</option>' +
+                '<option value="250000" ' + (Number(f.maxPrice) === 250000 ? "selected" : "") + '>≤ ' + esc(formatUzs(250000)) + '</option>' +
+                '<option value="400000" ' + (Number(f.maxPrice) === 400000 ? "selected" : "") + '>≤ ' + esc(formatUzs(400000)) + '</option>' +
+                '<option value="600000" ' + (Number(f.maxPrice) === 600000 ? "selected" : "") + '>≤ ' + esc(formatUzs(600000)) + '</option>' +
+                '<option value="800000" ' + (Number(f.maxPrice) === 800000 ? "selected" : "") + '>≤ ' + esc(formatUzs(800000)) + '</option>' +
+              '</select>' +
+              '<select id="filter-min-rating" class="form-select form-select-sm rounded-pill px-3" style="width:auto;" aria-label="Filter by rating">' +
+                '<option value="0" ' + (Number(f.minRating) === 0 ? "selected" : "") + '>' + esc(t("search.rate_all")) + '</option>' +
+                '<option value="4.2" ' + (Number(f.minRating) === 4.2 ? "selected" : "") + '>★ 4.20+ va yuqori</option>' +
+                '<option value="4.5" ' + (Number(f.minRating) === 4.5 ? "selected" : "") + '>★ 4.50+ va yuqori</option>' +
+                '<option value="4.8" ' + (Number(f.minRating) === 4.8 ? "selected" : "") + '>★ 4.80+ va yuqori</option>' +
+                '<option value="4.92" ' + (Number(f.minRating) === 4.92 ? "selected" : "") + '>★ 4.92+ Top</option>' +
+              '</select>' +
+            '</div>' +
+          '</div>' +
+
+          '<div class="d-flex justify-content-between align-items-center mb-3">' +
+            '<h2 class="h5 fw-bold mb-0">' + esc(t("search.popular_title")) + '</h2>' +
+            '<span class="small fw-semibold" style="color:var(--accent-secondary);">' + sortedCourses.length + ' ' + esc(t("search.results_count")) + '</span>' +
+          '</div>' +
+
+          /* Point 12: Course List with Elastic Overscroll Bounce Physics */
+          '<div class="elastic-course-list" id="elastic-course-list">' +
+            '<div class="row g-3" id="courses-grid">' +
+              cardsHtml +
+            '</div>' +
+            '<div class="elastic-boundary-hint" id="elastic-boundary-hint">' +
+              '↕ ' + esc(t("search.overscroll_end")) +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+
+        /* Static Right-Hand Profile Panel taking up the entire right side */
+        '<div class="mt-4 mt-lg-0">' +
+          FindIt.ui.renderRightProfileSidebar() +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  /* 2. Point 4: Courses Folder-Explorer View (`#/courses` and `#/courses/:slug`) */
+  function renderCoursesExplorerView(selectedSlug) {
+    var esc = FindIt.store.escapeHtml;
+    var enrollments = FindIt.store.getEnrollments();
+
+    if (!enrollments.length) {
+      return (
+        '<div class="card p-5 text-center">' +
+          '<h2 class="h5 fw-bold mb-2">📂 Kurslar papkasi bo\'sh</h2>' +
+          '<p class="text-muted small mb-3">Siz hali birorta kursga yozilmagansiz. Asosiy menyudan kurs tanlab yoziling.</p>' +
+          '<div><a href="#/" class="btn btn-primary rounded-pill px-4">Kurslarni ko\'rish</a></div>' +
+        '</div>'
+      );
+    }
+
+    var activeCourse = null;
+    if (selectedSlug) {
+      activeCourse = FindIt.store.getCourseBySlugOrId(selectedSlug);
+    }
+    if (!activeCourse) {
+      activeCourse = FindIt.store.getCourseBySlugOrId(enrollments[0].courseId);
+    }
+
+    var folderTabsHtml = enrollments.map(function (enr, idx) {
+      var c = FindIt.store.getCourseBySlugOrId(enr.courseId);
+      if (!c) return "";
+      var prog = FindIt.store.getCourseProgress(c.id);
+      var isSelected = activeCourse && activeCourse.id === c.id;
+      return (
+        '<a href="#/courses/' + esc(c.slug) + '" class="card p-3 mb-2 text-decoration-none d-block" style="border: 2px solid ' + (isSelected ? "var(--accent-secondary)" : "var(--border-color)") + '; background:' + (isSelected ? "var(--card-elevated)" : "var(--card-bg)") + ';">' +
+          '<div class="d-flex justify-content-between align-items-center mb-1">' +
+            '<span class="fw-bold small" style="color:var(--text-main);">📁 ' + (idx + 1) + '. ' + esc(c.title) + '</span>' +
+            '<span class="badge rounded-pill" style="background:var(--accent-pill-bg); color:var(--accent-pill-text);">' + prog.percent + '%</span>' +
+          '</div>' +
+          '<div class="small text-muted">O\'qituvchi: ' + esc(c.creatorName) + ' · ' + prog.completed + '/' + prog.total + ' dars</div>' +
+        '</a>'
+      );
+    }).join("");
+
+    var courseContentHtml = "";
+    if (activeCourse) {
+      var progObj = FindIt.store.getCourseProgress(activeCourse.id);
+      var enrObj = FindIt.store.getEnrollmentForCourse(activeCourse.id);
+      var completedIds = (enrObj && enrObj.completedLessonIds) || [];
+
+      var sectionsHtml = (activeCourse.sections || []).map(function (sec) {
+        var lessonsHtml = (sec.lessons || []).map(function (les) {
+          var isDone = completedIds.indexOf(les.id) !== -1;
+          return (
+            '<div class="d-flex justify-content-between align-items-center p-3 rounded-3 mb-2" style="background:var(--surface-bg); border:1px solid var(--border-color);">' +
+              '<div>' +
+                '<div class="fw-bold small">' + (isDone ? "✅ " : "📄 ") + esc(les.title) + '</div>' +
+                '<div class="text-muted" style="font-size:0.75rem;">' + esc((les.type || "video").toUpperCase()) + ' · ' + esc(les.durationMin || 25) + ' daq — ' + esc(les.content || "") + '</div>' +
+              '</div>' +
+              '<button type="button" class="btn btn-sm ' + (isDone ? "btn-primary" : "btn-outline-primary") + ' rounded-pill px-3 js-toggle-lesson" data-course-id="' + esc(activeCourse.id) + '" data-lesson-id="' + esc(les.id) + '">' +
+                (isDone ? "Bajarildi ✓" : "Bajarildi deb belgilash") +
+              '</button>' +
+            '</div>'
+          );
+        }).join("");
+
+        return (
+          '<div class="mb-3">' +
+            '<h4 class="h6 fw-bold mb-2">📂 ' + esc(sec.title) + '</h4>' +
+            lessonsHtml +
+          '</div>'
+        );
+      }).join("");
+
+      courseContentHtml =
+        '<div class="card p-4">' +
+          '<div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-3 pb-3 border-bottom">' +
+            '<div>' +
+              '<span class="badge rounded-pill mb-2" style="background:var(--accent-pill-bg); color:var(--accent-pill-text);">' + esc(activeCourse.category) + '</span>' +
+              '<h3 class="h5 fw-bold mb-1">' + esc(activeCourse.title) + '</h3>' +
+              '<div class="small text-muted">O\'qituvchi: ' + esc(activeCourse.creatorName) + ' · O\'zlashtirish: <strong>' + progObj.percent + '%</strong></div>' +
+            '</div>' +
+            '<button type="button" class="btn btn-sm btn-outline-danger rounded-pill js-unenroll-course" data-course-id="' + esc(activeCourse.id) + '">Kursdan chiqish</button>' +
+          '</div>' +
+          sectionsHtml +
+        '</div>';
+    }
+
+    return (
+      '<div>' +
+        '<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">' +
+          '<div>' +
+            '<h2 class="h4 fw-bold mb-1">Mening kurslarim</h2>' +
+            '<div class="small text-muted">Siz ' + enrollments.length + ' ta kursga yozilgansiz</div>' +
+          '</div>' +
+          '<a href="#/" class="btn btn-sm btn-outline-primary rounded-pill px-3">+ Yangi kurs qo\'shish</a>' +
+        '</div>' +
+        '<div class="row g-4">' +
+          '<div class="col-12 col-lg-4">' +
+            folderTabsHtml +
+          '</div>' +
+          '<div class="col-12 col-lg-8">' +
+            courseContentHtml +
+          '</div>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  /* 3. Point 16: Liked Courses View (`#/liked`) */
+  function renderLikedCoursesView() {
+    var esc = FindIt.store.escapeHtml;
+    var likedIds = FindIt.store.getLikedIds();
+    var courses = likedIds.map(function (id) {
+      return FindIt.store.getCourseBySlugOrId(id);
+    }).filter(Boolean);
+
+    var cardsHtml = courses.length
+      ? courses.map(function (c) {
+          return FindIt.ui.renderStepikCourseCard(c, false);
+        }).join("")
+      : '<div class="col-12"><div class="card p-5 text-center"><h3 class="h6 fw-bold mb-2">Yoqtirilgan kurslar ro\'yxati bo\'sh</h3><p class="small text-muted mb-3">Kurs kartochkasining yuqori o\'ng burchagidagi yurakcha (I like it) tugmasini bosing.</p><div><a href="#/" class="btn btn-primary rounded-pill px-4">Kurslarni ko\'rish</a></div></div></div>';
+
+    return (
+      '<div>' +
+        '<div class="d-flex justify-content-between align-items-center mb-3">' +
+          '<div>' +
+            '<h2 class="h4 fw-bold mb-1">💚 Yoqtirilgan kurslar (Liked Courses)</h2>' +
+            '<div class="small text-muted">Siz saqlab qo\'ygan kurslar soni: ' + courses.length + ' ta</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="elastic-course-list" id="elastic-course-list">' +
+          '<div class="row g-3">' + cardsHtml + '</div>' +
+          '<div class="elastic-boundary-hint" id="elastic-boundary-hint">↕ Ro\'yxat oxiriga yetdingiz</div>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  /* 4. Point 5: Stepik-Style Profile View (`#/profile`) */
+  function renderProfileView() {
+    var user = FindIt.store.getUser();
+    var esc = FindIt.store.escapeHtml;
+    var t = FindIt.i18n.t;
+    var enrollments = FindIt.store.getEnrollments();
+    var certs = (user && user.certificates) || [];
+
+    var certsHtml = certs.map(function (cert) {
+      return (
+        '<div class="col-12 col-md-4">' +
+          '<div class="card p-3 h-100">' +
+            '<div class="d-flex justify-content-between align-items-start mb-2">' +
+              '<span class="badge rounded-pill" style="background:var(--accent-pill-bg); color:var(--accent-pill-text);">🏆 VERIFIED CERTIFICATE</span>' +
+              '<span class="small text-muted">' + esc(cert.issuedAt) + '</span>' +
+            '</div>' +
+            '<h4 class="h6 fw-bold mb-1">' + esc(cert.title) + '</h4>' +
+            '<div class="small text-muted mb-2">' + esc(cert.issuer) + '</div>' +
+            '<div class="mt-auto pt-2 border-top d-flex justify-content-between align-items-center small">' +
+              '<strong style="color:var(--accent-secondary);">' + esc(cert.score) + '</strong>' +
+              '<span class="text-muted">ID: ' + esc(cert.code) + '</span>' +
+            '</div>' +
+          '</div>' +
+        '</div>'
+      );
+    }).join("");
+
+    return (
+      '<div>' +
+        /* Stepik Profile Header Card */
+        '<div class="card p-4 mb-4">' +
+          '<div class="d-flex flex-wrap align-items-center justify-content-between gap-3">' +
+            '<div class="d-flex align-items-center gap-3">' +
+              '<div class="avatar-circle">' + esc(user.initials || "BX") + '</div>' +
+              '<div>' +
+                '<div class="d-flex align-items-center gap-2">' +
+                  '<h2 class="h4 fw-bold mb-0">' + esc(user.name) + '</h2>' +
+                  '<span class="badge rounded-pill" style="background:var(--accent-pill-bg); color:var(--accent-pill-text);">' +
+                    esc(user.role === "teacher" ? "Teacher" : "Student") +
+                  '</span>' +
+                '</div>' +
+                '<div class="small text-muted">' + esc(user.email) + ' · Major / Specialty: <strong>' + esc(user.role === "teacher" ? user.subjectCert : user.major) + '</strong></div>' +
+                (user.role === "teacher"
+                  ? '<div class="small text-muted mt-1">🏅 Honors: ' + esc(user.honors) + ' · 💳 Payout Card: ' + esc(user.paymentCard) + '</div>'
+                  : ''
+                ) +
+              '</div>' +
+            '</div>' +
+            '<div class="d-flex gap-3 text-center">' +
+              '<div class="p-2 px-3 rounded-3" style="background:var(--surface-bg);">' +
+                '<div class="h5 fw-bold mb-0">' + enrollments.length + '</div>' +
+                '<div class="small text-muted">Kurslar</div>' +
+              '</div>' +
+              '<div class="p-2 px-3 rounded-3" style="background:var(--surface-bg);">' +
+                '<div class="h5 fw-bold mb-0">' + certs.length + '</div>' +
+                '<div class="small text-muted">Sertifikatlar</div>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+
+        /* Point 5 & Image 1: Stepik 52-Week Activity Graph */
+        FindIt.ui.renderStepikYearlyHeatmap() +
+
+        /* Point 5: Earned Certificates Section */
+        '<div class="mb-4">' +
+          '<h3 class="h5 fw-bold mb-3">🎓 ' + esc(t("profile.earned_certs")) + '</h3>' +
+          '<div class="row g-3">' +
+            certsHtml +
+          '</div>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  /* 5. Point 6: Teacher Studio View (`#/studio`) — Course activeness, profit made, feedback reviews */
+  function renderStudioView() {
+    var user = FindIt.store.getUser();
+    var esc = FindIt.store.escapeHtml;
+    var t = FindIt.i18n.t;
+    var formatUzs = FindIt.i18n.formatUzs;
+    var allCourses = FindIt.store.getCourses();
+
+    /* Teacher's own courses (custom teacher course + top creator courses) */
+    var teacherCourses = allCourses.filter(function (c) {
+      return c.id === "course-teacher-user" || c.creatorId === "creator-2" || c.creatorId === "creator-1";
+    });
+
+    var summary = FindIt.fees.calculateStudioSummary(teacherCourses);
+    var reviews = FindIt.store.getReviews();
+
+    var courseRowsHtml = teacherCourses.map(function (c) {
+      var econ = FindIt.fees.calculateCourseEconomics(c.price, c.subscribers);
+      return (
+        '<tr>' +
+          '<td>' +
+            '<div class="fw-bold">' + esc(c.title) + '</div>' +
+            '<div class="small text-muted">🎓 ' + esc(c.pastStudentsResult) + '</div>' +
+          '</td>' +
+          '<td><span class="badge rounded-pill" style="background:var(--accent-pill-bg); color:var(--accent-pill-text); font-weight:700;">96% Faol · ' + esc(c.subscribers) + ' talaba</span></td>' +
+          '<td>' + esc(formatUzs(c.price)) + '</td>' +
+          '<td class="fw-bold" style="color:var(--accent-secondary);">' + esc(formatUzs(econ.netEarnings)) + '</td>' +
+          '<td>★ ' + esc(c.rating) + ' (' + esc(c.reviewCount) + ')</td>' +
+        '</tr>'
+      );
+    }).join("");
+
+    var reviewsHtml = reviews.map(function (rv) {
+      var courseObj = FindIt.store.getCourseBySlugOrId(rv.courseId);
+      return (
+        '<div class="card p-3 mb-3">' +
+          '<div class="d-flex justify-content-between align-items-center mb-1">' +
+            '<div class="fw-bold small">' + esc(rv.userName) + ' <span class="text-muted">· ' + esc(courseObj ? courseObj.title : "") + '</span></div>' +
+            '<span class="fw-bold" style="color:#F59E0B;">★ ' + esc(rv.rating) + '.0</span>' +
+          '</div>' +
+          '<p class="small mb-2">' + esc(rv.text) + '</p>' +
+          (rv.creatorReply
+            ? '<div class="p-2 rounded-3 small" style="background:var(--surface-bg); border-left:3px solid var(--accent-secondary);"><strong>Sizning javobingiz:</strong> ' + esc(rv.creatorReply) + '</div>'
+            : '<form class="d-flex gap-2 mt-2 js-studio-reply-form" data-review-id="' + esc(rv.id) + '">' +
+                '<input type="text" class="form-control form-control-sm" placeholder="O\'quvchi fikriga javob yozing..." required>' +
+                '<button type="submit" class="btn btn-sm btn-primary rounded-pill px-3">Javob</button>' +
+              '</form>'
+          ) +
+        '</div>'
+      );
+    }).join("");
+
+    return (
+      '<div>' +
+        '<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">' +
+          '<div>' +
+            '<h2 class="h4 fw-bold mb-1">📊 ' + esc(t("studio.title")) + ' — ' + esc(user.name) + '</h2>' +
+            '<div class="small text-muted">To\'lov kartasi: <strong>' + esc(user.paymentCard || "8600 4921 •••• 7814") + '</strong> · Yutuqlar: ' + esc(user.honors) + '</div>' +
+          '</div>' +
+        '</div>' +
+
+        /* Key Metrics Cards: Course Activeness, Profit Made, Reviews */
+        '<div class="row g-3 mb-4">' +
+          '<div class="col-12 col-md-4">' +
+            '<div class="card p-3 h-100">' +
+              '<div class="small text-muted mb-1">' + esc(t("studio.activeness")) + '</div>' +
+              '<div class="h4 fw-bold mb-1" style="color:var(--accent-secondary);">94.8% Faol</div>' +
+              '<div class="small text-muted">Jami o\'quvchilar: <strong>' + summary.totalSubscribers + ' nafar</strong> · Haftalik davomat yuqori</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="col-12 col-md-4">' +
+            '<div class="card p-3 h-100">' +
+              '<div class="small text-muted mb-1">' + esc(t("studio.profit")) + '</div>' +
+              '<div class="h4 fw-bold mb-1" style="color:var(--accent-secondary);">' + esc(formatUzs(summary.totalNet)) + '</div>' +
+              '<div class="small text-muted">Umumiy tushum: ' + esc(formatUzs(summary.totalGross)) + ' (Sof 95–98%)</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="col-12 col-md-4">' +
+            '<div class="card p-3 h-100">' +
+              '<div class="small text-muted mb-1">' + esc(t("studio.reviews")) + '</div>' +
+              '<div class="h4 fw-bold mb-1" style="color:#F59E0B;">★ 4.96 (' + reviews.length + ' ta sharh)</div>' +
+              '<div class="small text-muted">🎓 ' + esc(user.pastStudentsResult) + '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+
+        /* Active Teacher Courses Table */
+        '<div class="card p-4 mb-4">' +
+          '<h3 class="h6 fw-bold mb-3">Kurslaringiz faolligi va daromadi</h3>' +
+          '<div class="table-responsive">' +
+            '<table class="table align-middle mb-0" style="color:var(--text-main);">' +
+              '<thead>' +
+                '<tr>' +
+                  '<th>Kurs nomi va natijalar</th>' +
+                  '<th>Faollik darajasi</th>' +
+                  '<th>Narxi</th>' +
+                  '<th>Sof foyda (Profit)</th>' +
+                  '<th>Reyting</th>' +
+                '</tr>' +
+              '</thead>' +
+              '<tbody>' + courseRowsHtml + '</tbody>' +
+            '</table>' +
+          '</div>' +
+        '</div>' +
+
+        /* Student Feedback Reviews Section */
+        '<div>' +
+          '<h3 class="h5 fw-bold mb-3">💬 ' + esc(t("studio.reviews")) + '</h3>' +
+          reviewsHtml +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  /* 6. Point 11 & 17 & Clarification #2: Settings View (`#/settings`) */
+  function renderSettingsView() {
+    var user = FindIt.store.getUser();
+    var esc = FindIt.store.escapeHtml;
+    var t = FindIt.i18n.t;
+    var notif = (user && user.notifications) || {};
+    var vid = (user && user.videoDefaults) || {};
+    var isDark = user && user.theme === "dark";
+
+    return (
+      '<div>' +
+        '<h2 class="h4 fw-bold mb-4">⚙️ ' + esc(t("settings.title")) + '</h2>' +
+        '<div class="row g-4">' +
+          /* 1. Color Thematics: Light Mode vs Night Mode (VS Code Dark + Bright Amber Yellow) */
+          '<div class="col-12 col-lg-6">' +
+            '<div class="card p-4 h-100">' +
+              '<h3 class="h6 fw-bold mb-2">🌗 ' + esc(t("settings.theme")) + '</h3>' +
+              '<p class="small text-muted mb-3">Light mode asl ranglarni saqlaydi. Night mode dasturchilar uchun VS Code Dark (#1E1E1E) va yumshoq oltin-sariq (#E2B714) urg\'u rangiga o\'tkazadi.</p>' +
+              '<div class="d-flex gap-2">' +
+                '<button type="button" class="btn ' + (!isDark ? "btn-primary" : "btn-outline-primary") + ' rounded-pill flex-grow-1 py-2 js-theme-switch" data-theme="light">☀️ Light Mode (Indigo & White)</button>' +
+                '<button type="button" class="btn ' + (isDark ? "btn-primary" : "btn-outline-primary") + ' rounded-pill flex-grow-1 py-2 js-theme-switch" data-theme="dark">🌙 Night Mode (Code Dark & Yellow)</button>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+
+          /* 2. Account / Role Switch (Student vs Teacher + Re-open Login Gate) */
+          '<div class="col-12 col-lg-6">' +
+            '<div class="card p-4 h-100">' +
+              '<h3 class="h6 fw-bold mb-2">👤 ' + esc(t("settings.account")) + '</h3>' +
+              '<p class="small text-muted mb-3">Joriy rol: <strong>' + esc(user.role === "teacher" ? "Teacher (Studio yoqilgan)" : "Student") + '</strong>. Rolni almashtirsangiz chap menyuda Studio bo\'limi ko\'rinadi yoki yashiriladi.</p>' +
+              '<div class="d-flex flex-wrap gap-2">' +
+                '<button type="button" class="btn ' + (user.role === "student" ? "btn-primary" : "btn-outline-primary") + ' rounded-pill px-3 js-quick-role-switch" data-role="student">🎓 Student rejimi</button>' +
+                '<button type="button" class="btn ' + (user.role === "teacher" ? "btn-primary" : "btn-outline-primary") + ' rounded-pill px-3 js-quick-role-switch" data-role="teacher">👨‍🏫 Teacher rejimi (Studio)</button>' +
+                '<button type="button" class="btn btn-outline-primary rounded-pill px-3" id="settings-open-login-btn">Kirish oynasini ochish</button>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+
+          /* 3. Notification Toggles */
+          '<div class="col-12 col-lg-6">' +
+            '<div class="card p-4 h-100">' +
+              '<h3 class="h6 fw-bold mb-3">🔔 ' + esc(t("settings.notifications")) + '</h3>' +
+              '<div class="form-check form-switch mb-2">' +
+                '<input class="form-check-input js-setting-toggle" type="checkbox" id="notif-updates" data-setting="courseUpdates" ' + (notif.courseUpdates !== false ? "checked" : "") + '>' +
+                '<label class="form-check-label small fw-semibold" for="notif-updates">Kurs yangilanishlari va yangi darslar haqida xabar berish</label>' +
+              '</div>' +
+              '<div class="form-check form-switch mb-2">' +
+                '<input class="form-check-input js-setting-toggle" type="checkbox" id="notif-reviews" data-setting="studentReviews" ' + (notif.studentReviews !== false ? "checked" : "") + '>' +
+                '<label class="form-check-label small fw-semibold" for="notif-reviews">Yangi o\'quvchi sharhlari va izohlari (Studio)</label>' +
+              '</div>' +
+              '<div class="form-check form-switch">' +
+                '<input class="form-check-input js-setting-toggle" type="checkbox" id="notif-reminders" data-setting="dailyReminders" ' + (notif.dailyReminders !== false ? "checked" : "") + '>' +
+                '<label class="form-check-label small fw-semibold" for="notif-reminders">Kunlik Stepik faollik (streak) eslatmalari</label>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+
+          /* 4. Video Playback Defaults */
+          '<div class="col-12 col-lg-6">' +
+            '<div class="card p-4 h-100">' +
+              '<h3 class="h6 fw-bold mb-3">🎬 ' + esc(t("settings.video")) + '</h3>' +
+              '<div class="form-check form-switch mb-3">' +
+                '<input class="form-check-input js-video-autoplay" type="checkbox" id="vid-autoplay" ' + (vid.autoplayPreview !== false ? "checked" : "") + '>' +
+                '<label class="form-check-label small fw-semibold" for="vid-autoplay">Kurs preview videolarini avtomatik ijro etish</label>' +
+              '</div>' +
+              '<div>' +
+                '<label class="form-label small fw-bold" for="vid-quality">Standart video sifati:</label>' +
+                '<select id="vid-quality" class="form-select form-select-sm rounded-3">' +
+                  ["1080p HD", "720p", "480p Data Saver"].map(function (q) {
+                    return '<option value="' + esc(q) + '" ' + (vid.defaultQuality === q ? "selected" : "") + '>' + esc(q) + '</option>';
+                  }).join("") +
+                '</select>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  /* 7. Course Detail View (`#/course/:slug`) */
+  function renderCourseDetailView(slug) {
+    var course = FindIt.store.getCourseBySlugOrId(slug);
+    var esc = FindIt.store.escapeHtml;
+    var formatUzs = FindIt.i18n.formatUzs;
+    if (!course) {
+      return '<div class="card p-4">Kurs topilmadi. <a href="#/">Asosiy menyuga qaytish</a></div>';
+    }
+
+    var enrolled = FindIt.store.getEnrollmentForCourse(course.id);
+    var liked = FindIt.store.isCourseLiked(course.id);
+    var reviews = FindIt.store.getReviews().filter(function (r) { return r.courseId === course.id; });
+
+    return (
+      '<div class="card p-4">' +
+        '<div class="d-flex flex-wrap justify-content-between align-items-start gap-3 mb-3 pb-3 border-bottom">' +
+          '<div>' +
+            '<span class="badge rounded-pill mb-2" style="background:var(--accent-pill-bg); color:var(--accent-pill-text);">' + esc(course.category) + ' · ' + esc(course.certificateTarget) + '</span>' +
+            '<h2 class="h4 fw-bold mb-1">' + esc(course.title) + '</h2>' +
+            '<div class="small text-muted mb-1">O\'qituvchi: <strong>' + esc(course.creatorName) + '</strong> · 🏅 ' + esc(course.teacherHonors) + '</div>' +
+            '<div class="small fw-semibold" style="color:var(--accent-secondary);">🎓 ' + esc(course.pastStudentsResult) + '</div>' +
+          '</div>' +
+          '<div class="d-flex align-items-center gap-2">' +
+            '<button type="button" class="stepik-like-btn position-static js-like-course-btn ' + (liked ? "is-liked" : "") + '" data-course-id="' + esc(course.id) + '" aria-label="I like it">' +
+              '<span class="stepik-like-btn__tooltip">I like it</span>' +
+              '<svg width="17" height="17" viewBox="0 0 24 24" fill="' + (liked ? "currentColor" : "none") + '" stroke="currentColor" stroke-width="2.2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>' +
+            '</button>' +
+            (enrolled
+              ? '<a href="#/courses/' + esc(course.slug) + '" class="btn btn-primary rounded-pill px-4">Papkada darsni ochish →</a>'
+              : '<button type="button" class="btn btn-primary rounded-pill px-4 js-open-checkout" data-course-id="' + esc(course.id) + '">Kursga yozilish · ' + esc(formatUzs(course.price)) + '</button>'
+            ) +
+          '</div>' +
+        '</div>' +
+        '<p class="mb-3">' + esc(course.shortDesc) + '</p>' +
+        '<div class="d-flex flex-wrap gap-3 align-items-center mb-4 small text-muted">' +
+          '<span>Narxi: <strong style="color:var(--accent-secondary);">' + esc(formatUzs(course.price)) + '</strong></span>' +
+          FindIt.ui.renderFiveStars(course.rating) +
+          '<span>👥 ' + esc(course.subscribers) + ' o\'quvchi</span>' +
+          '<span>⏱ ' + esc(course.durationHours) + ' soat</span>' +
+        '</div>' +
+        '<h3 class="h6 fw-bold mb-2">O\'quvchilar sharhlari (' + reviews.length + ')</h3>' +
+        (reviews.map(function (r) {
+          return '<div class="p-3 rounded-3 mb-2" style="background:var(--surface-bg);"><div class="fw-bold small">' + esc(r.userName) + ' · ★ ' + esc(r.rating) + '</div><div class="small">' + esc(r.text) + '</div></div>';
+        }).join("") || '<div class="small text-muted">Hozircha sharhlar yo\'q.</div>') +
+      '</div>'
+    );
+  }
+
+  FindIt.views = {
+    renderMainMenuView: renderMainMenuView,
+    renderCoursesExplorerView: renderCoursesExplorerView,
+    renderLikedCoursesView: renderLikedCoursesView,
+    renderProfileView: renderProfileView,
+    renderStudioView: renderStudioView,
+    renderSettingsView: renderSettingsView,
+    renderCourseDetailView: renderCourseDetailView
+  };
+})(window);
+
+/* ==========================================================================
+   FindIT Router & App Controller:
+   - Point 13: Top Loading Bar completes BEFORE switching to next page
+   - Point 14: Shows Stepik Skeleton Cards with Glancing Shimmer while loading
+   - Point 12: Elastic Overscroll Bounce Physics on course lists
+   ========================================================================== */
+(function (global) {
+  "use strict";
+
+  var FindIt = (global.FindIt = global.FindIt || {});
+  var routeTransitionTimer = null;
+  var currentRouteHash = "#/";
+
+  function getActiveHash() {
+    var raw = String(global.location.hash || "");
+    if (raw && raw.indexOf("#/") === 0) {
+      currentRouteHash = raw;
+    }
+    return currentRouteHash || "#/";
+  }
+
+  function navigateTo(hashTarget, instant) {
+    var clean = String(hashTarget || "#/").trim();
+    if (clean.indexOf("#") !== 0) clean = "#" + clean;
+    currentRouteHash = clean;
+    try {
+      if (String(global.location.protocol || "").indexOf("data:") !== 0 && global.location.hash !== clean) {
+        global.location.hash = clean;
+      }
+    } catch (e) {}
+    renderRouteWithTransition(Boolean(instant));
+  }
+
+  function resolveRoute(hashStr) {
+    var clean = String(hashStr || "#/").replace(/^#/, "");
+    if (!clean || clean === "/") clean = "/";
+    var parts = clean.split("/").filter(Boolean);
+    var V = FindIt.views;
+
+    if (parts.length === 0) {
+      return { nav: "dashboard", usesCourseSkeleton: true, render: function () { return V.renderMainMenuView(); } };
+    }
+    if (parts[0] === "courses") {
+      return { nav: "courses", usesCourseSkeleton: false, render: function () { return V.renderCoursesExplorerView(parts[1] || null); } };
+    }
+    if (parts[0] === "liked") {
+      return { nav: "liked", usesCourseSkeleton: true, render: function () { return V.renderLikedCoursesView(); } };
+    }
+    if (parts[0] === "studio") {
+      return { nav: "studio", usesCourseSkeleton: false, render: function () { return V.renderStudioView(); } };
+    }
+    if (parts[0] === "profile") {
+      return { nav: "profile", usesCourseSkeleton: false, render: function () { return V.renderProfileView(); } };
+    }
+    if (parts[0] === "settings") {
+      return { nav: "settings", usesCourseSkeleton: false, render: function () { return V.renderSettingsView(); } };
+    }
+    if (parts[0] === "course" && parts[1]) {
+      return { nav: "dashboard", usesCourseSkeleton: false, render: function () { return V.renderCourseDetailView(parts[1]); } };
+    }
+    return { nav: "dashboard", usesCourseSkeleton: true, render: function () { return V.renderMainMenuView(); } };
+  }
+
+  function syncActiveNav(navKey) {
+    document.querySelectorAll("#sidebar-nav .nav-link, .sidebar__footer .nav-link").forEach(function (link) {
+      var target = link.getAttribute("data-nav");
+      if (target === navKey) {
+        link.classList.add("active");
+      } else {
+        link.classList.remove("active");
+      }
+    });
+  }
+
+  /**
+   * Point 13 & Point 14:
+   * Runs top loading line to 100% AND shows glancing skeleton template cards
+   * before switching to the new page content.
+   */
+  function renderRouteWithTransition(instant) {
+    var mainEl = document.getElementById("dashboard-top");
+    var barEl = document.getElementById("top-loading-bar");
+    if (!mainEl) return;
+
+    var route = resolveRoute(getActiveHash());
+    syncActiveNav(route.nav);
+    FindIt.ui.updateSidebarFolderAndCounts();
+
+    if (routeTransitionTimer) {
+      clearTimeout(routeTransitionTimer);
+      routeTransitionTimer = null;
+    }
+
+    if (instant) {
+      mainEl.innerHTML = route.render();
+      bindElasticOverscroll();
+      return;
+    }
+
+    /* Step 1: Start Top Loading Line & display Stepik Skeleton Glancing Templates */
+    if (barEl) {
+      barEl.style.transition = "none";
+      barEl.style.width = "0%";
+      barEl.style.opacity = "1";
+      void barEl.offsetWidth;
+      barEl.style.transition = "width 0.34s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.2s ease";
+      barEl.style.width = "100%";
+    }
+
+    if (route.nav === "dashboard" && route.usesCourseSkeleton) {
+      mainEl.innerHTML = FindIt.ui.renderMainMenuSkeleton();
+    } else if (route.nav === "profile") {
+      mainEl.innerHTML =
+        '<div class="row g-4 align-items-start" data-testid="skeleton-profile-page">' +
+          '<div class="col-12 col-lg-4">' + FindIt.ui.renderProfileSidebarSkeleton() + '</div>' +
+          '<div class="col-12 col-lg-8">' + FindIt.ui.renderSkeletonGrid(2) + '</div>' +
+        '</div>';
+    } else if (route.usesCourseSkeleton) {
+      mainEl.innerHTML =
+        '<div class="mb-3">' +
+          '<div class="skel-bar mb-3" style="width: 280px; height: 24px;"></div>' +
+          FindIt.ui.renderSkeletonGrid(4) +
+        '</div>';
+    }
+
+    /* Step 2: Once loading line finishes, render the selected page and fade out loading line */
+    routeTransitionTimer = setTimeout(function () {
+      mainEl.innerHTML = route.render();
+      bindElasticOverscroll();
+      if (barEl) {
+        barEl.style.opacity = "0";
+        setTimeout(function () {
+          barEl.style.width = "0%";
+        }, 180);
+      }
+    }, 350);
+  }
+
+  /**
+   * Point 12: Elastic Overscroll / Rubber-Band Push Effect at End of Course List
+   */
+  function bindElasticOverscroll() {
+    var listEl = document.getElementById("elastic-course-list");
+    var hintEl = document.getElementById("elastic-boundary-hint");
+    if (!listEl) return;
+
+    var currentStretch = 0;
+    var snapBackTimer = null;
+
+    function applyElasticPush(deltaY) {
+      currentStretch = Math.max(-55, Math.min(55, currentStretch - deltaY * 0.28));
+      listEl.style.transition = "none";
+      listEl.style.transform = "translateY(" + currentStretch + "px)";
+      if (hintEl && Math.abs(currentStretch) > 10) {
+        hintEl.classList.add("is-visible");
+      }
+      if (snapBackTimer) clearTimeout(snapBackTimer);
+      snapBackTimer = setTimeout(function () {
+        currentStretch = 0;
+        listEl.style.transition = "transform 0.45s cubic-bezier(0.23, 1, 0.32, 1)";
+        listEl.style.transform = "translateY(0px)";
+        if (hintEl) {
+          setTimeout(function () { hintEl.classList.remove("is-visible"); }, 500);
+        }
+      }, 110);
+    }
+
+    listEl.addEventListener("wheel", function (e) {
+      var atBottom = (global.innerHeight + global.scrollY) >= (document.body.offsetHeight - 8);
+      var atTop = global.scrollY <= 2;
+      if ((e.deltaY > 0 && atBottom) || (e.deltaY < 0 && atTop)) {
+        applyElasticPush(e.deltaY);
+      }
+    }, { passive: true });
+  }
+
+  function applyTheme(themeCode) {
+    var mode = themeCode === "dark" ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", mode);
+    FindIt.store.updateUser({ theme: mode });
+  }
+
+  function syncAllI18nStrings() {
+    var t = FindIt.i18n.t;
+    var lang = FindIt.i18n.getLang();
+
+    document.querySelectorAll("[data-i18n]").forEach(function (el) {
+      var key = el.getAttribute("data-i18n");
+      if (key) el.textContent = t(key);
+    });
+
+    /* Point 9: Smoothly slide language cube to active language */
+    document.querySelectorAll(".lang-slider").forEach(function (slider) {
+      slider.setAttribute("data-lang", lang);
+      slider.querySelectorAll(".lang-slider__btn").forEach(function (btn) {
+        if (btn.getAttribute("data-lang") === lang) {
+          btn.classList.add("is-active");
+        } else {
+          btn.classList.remove("is-active");
+        }
+      });
+    });
+  }
+
+  function setLoginGateRole(role) {
+    var cleanRole = role === "teacher" ? "teacher" : "student";
+    var track = document.getElementById("login-role-track");
+    var roleInput = document.getElementById("login-role-input");
+    var btnStu = document.getElementById("role-btn-student");
+    var btnTea = document.getElementById("role-btn-teacher");
+    var majorField = document.getElementById("student-major-field");
+    var teacherFields = document.getElementById("teacher-extra-fields");
+
+    if (track) track.setAttribute("data-role", cleanRole);
+    if (roleInput) roleInput.value = cleanRole;
+    if (btnStu) btnStu.classList.toggle("is-active", cleanRole === "student");
+    if (btnTea) btnTea.classList.toggle("is-active", cleanRole === "teacher");
+    if (majorField) majorField.classList.toggle("d-none", cleanRole === "teacher");
+    if (teacherFields) teacherFields.classList.toggle("d-none", cleanRole !== "teacher");
+  }
+
+  function bindEvents() {
+    global.addEventListener("hashchange", function () {
+      renderRouteWithTransition(false);
+    });
+
+    document.addEventListener("click", function (e) {
+      /* Login Role Switcher (Student vs Teacher) */
+      var roleBtn = e.target.closest("#role-btn-student, #role-btn-teacher");
+      if (roleBtn) {
+        setLoginGateRole(roleBtn.getAttribute("data-role"));
+        return;
+      }
+
+      /* Re-open Login Gate */
+      if (e.target.closest("#reopen-login-gate-btn") || e.target.closest("#settings-open-login-btn")) {
+        var gate = document.getElementById("login-gate-overlay");
+        var user = FindIt.store.getUser();
+        setLoginGateRole(user.role || "student");
+        if (gate) gate.classList.remove("is-hidden");
+        return;
+      }
+
+      /* Point 10: Logotype on top-left corner transfers to Main Menu */
+      var logoLink = e.target.closest(".js-logo-main");
+      if (logoLink) {
+        e.preventDefault();
+        navigateTo("#/", false);
+        return;
+      }
+
+      /* Any internal hash route link a[href^="#/"] */
+      var routeLink = e.target.closest('a[href^="#/"]');
+      if (routeLink) {
+        e.preventDefault();
+        var href = routeLink.getAttribute("href") || "#/";
+        /* Point 4: If clicking Courses while already on #/courses, toggle folder tree */
+        if (routeLink.id === "nav-courses-toggle" && getActiveHash().indexOf("#/courses") === 0) {
+          var treeEl = document.getElementById("sidebar-courses-folder");
+          var chevEl = document.getElementById("courses-folder-chevron");
+          if (treeEl) treeEl.classList.toggle("is-expanded");
+          if (chevEl) chevEl.classList.toggle("is-rotated");
+          return;
+        }
+        navigateTo(href, false);
+        return;
+      }
+
+      /* Point 4: Courses sidebar item toggles folder tree AND navigates to #/courses */
+      var coursesToggle = e.target.closest("#nav-courses-toggle");
+      if (coursesToggle) {
+        var tree = document.getElementById("sidebar-courses-folder");
+        var chev = document.getElementById("courses-folder-chevron");
+        if (tree && global.location.hash.indexOf("#/courses") === 0) {
+          e.preventDefault();
+          tree.classList.toggle("is-expanded");
+          if (chev) chev.classList.toggle("is-rotated");
+          return;
+        }
+      }
+
+      /* Point 9: Smooth Language Slider button */
+      var langBtn = e.target.closest(".js-lang-btn");
+      if (langBtn) {
+        var code = langBtn.getAttribute("data-lang");
+        FindIt.i18n.setLang(code);
+        syncAllI18nStrings();
+        renderRouteWithTransition(true);
+        return;
+      }
+
+      /* Point 15: Like button on top-right corner of course card */
+      var likeBtn = e.target.closest(".js-like-course-btn");
+      if (likeBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        var cId = likeBtn.getAttribute("data-course-id");
+        var res = FindIt.store.toggleLikeCourse(cId);
+        FindIt.ui.updateSidebarFolderAndCounts();
+        renderRouteWithTransition(true);
+        FindIt.ui.showToast(res.liked ? "💚 Kurs 'Liked courses' ro’yxatiga qo'shildi!" : "Kurs yoqtirilganlardan olib tashlandi");
+        return;
+      }
+
+      /* Category filter chip */
+      var catChip = e.target.closest(".js-cat-chip");
+      if (catChip) {
+        FindIt.store.saveFilters({ category: catChip.getAttribute("data-category") });
+        renderRouteWithTransition(false);
+        return;
+      }
+
+      /* Clear search input */
+      if (e.target.closest("#clear-search-btn")) {
+        FindIt.store.saveFilters({ query: "" });
+        renderRouteWithTransition(true);
+        return;
+      }
+
+      /* Open Checkout / Apply Drawer */
+      var applyBtn = e.target.closest(".js-open-checkout");
+      if (applyBtn) {
+        FindIt.ui.openCheckoutDrawer(applyBtn.getAttribute("data-course-id"));
+        return;
+      }
+
+      /* Close Offcanvas Drawer */
+      if (e.target.closest(".js-close-offcanvas") || e.target.closest("#offcanvas-backdrop")) {
+        FindIt.ui.closeAllDrawers();
+        return;
+      }
+
+      /* Toggle lesson completion inside Courses folder explorer */
+      var lessonBtn = e.target.closest(".js-toggle-lesson");
+      if (lessonBtn) {
+        var courseId = lessonBtn.getAttribute("data-course-id");
+        var lessonId = lessonBtn.getAttribute("data-lesson-id");
+        var prog = FindIt.store.toggleLessonComplete(courseId, lessonId);
+        /* Also bump today's activity hours when completing a lesson */
+        var usr = FindIt.store.getUser();
+        var curToday = (usr.yearlyActivityHours && usr.yearlyActivityHours[363]) || 0;
+        FindIt.store.logTodayActivityHours(Math.min(6, curToday + 1));
+        FindIt.ui.updateSidebarFolderAndCounts();
+        renderRouteWithTransition(true);
+        FindIt.ui.showToast("Dars holati yangilandi (" + prog.percent + "%)!");
+        return;
+      }
+
+      /* Unenroll from course in Courses folder explorer */
+      var unenrollBtn = e.target.closest(".js-unenroll-course");
+      if (unenrollBtn) {
+        var uCourseId = unenrollBtn.getAttribute("data-course-id");
+        FindIt.store.removeEnrollment(uCourseId);
+        FindIt.ui.updateSidebarFolderAndCounts();
+        renderRouteWithTransition(true);
+        FindIt.ui.showToast("Kurs papkadan o'chirildi");
+        return;
+      }
+
+      /* Log today's study hours on Stepik Activity Graph */
+      var logHoursBtn = e.target.closest(".js-log-today-hours");
+      if (logHoursBtn) {
+        var h = Number(logHoursBtn.getAttribute("data-hours")) || 0;
+        FindIt.store.logTodayActivityHours(h);
+        renderRouteWithTransition(true);
+        FindIt.ui.showToast("Bugungi faollik: " + h + " soat belgilandi!");
+        return;
+      }
+
+      /* Click individual cell in Stepik Activity Graph to cycle its hours (0 -> 1 -> 2.5 -> 4) */
+      var heatCell = e.target.closest(".stepik-heat-cell[data-day-index], .mini-heat-cell[data-day-index]");
+      if (heatCell) {
+        var idx = Number(heatCell.getAttribute("data-day-index"));
+        var userObj = FindIt.store.getUser();
+        var arr = userObj.yearlyActivityHours.slice();
+        var cur = Number(arr[idx]) || 0;
+        var nextHrs = cur === 0 ? 1.0 : (cur <= 1.0 ? 2.0 : (cur <= 2.2 ? 3.2 : (cur <= 3.5 ? 4.5 : 0)));
+        arr[idx] = nextHrs;
+        FindIt.store.updateUser({ yearlyActivityHours: arr });
+        renderRouteWithTransition(true);
+        return;
+      }
+
+      /* Settings: Theme Switch (Light vs Night Mode) */
+      var themeBtn = e.target.closest(".js-theme-switch");
+      if (themeBtn) {
+        var nextTheme = themeBtn.getAttribute("data-theme");
+        applyTheme(nextTheme);
+        renderRouteWithTransition(true);
+        FindIt.ui.showToast(nextTheme === "dark" ? "🌙 Night Mode (Code Dark + Amber Yellow) yoqildi" : "☀️ Light Mode yoqildi");
+        return;
+      }
+
+      /* Settings: Quick Role Switch (Student vs Teacher) */
+      var quickRoleBtn = e.target.closest(".js-quick-role-switch");
+      if (quickRoleBtn) {
+        var newRole = quickRoleBtn.getAttribute("data-role");
+        var u = FindIt.store.updateUser({ role: newRole });
+        if (newRole === "teacher") {
+          FindIt.store.registerOrUpdateTeacherCourse(u);
+        }
+        FindIt.ui.updateSidebarFolderAndCounts();
+        renderRouteWithTransition(true);
+        FindIt.ui.showToast("Rol o’zgartirildi: " + (newRole === "teacher" ? "Teacher (Studio ochildi)" : "Student"));
+        return;
+      }
+
+      /* Mobile Sidebar Toggle */
+      if (e.target.closest("#mobile-menu-toggle")) {
+        document.getElementById("app-sidebar").classList.add("is-open");
+        document.getElementById("sidebar-backdrop").classList.add("is-open");
+        return;
+      }
+      if (e.target.closest("#sidebar-close-btn") || e.target.closest("#sidebar-backdrop")) {
+        document.getElementById("app-sidebar").classList.remove("is-open");
+        document.getElementById("sidebar-backdrop").classList.remove("is-open");
+        return;
+      }
+    });
+
+    /* Live Search Input & Filter Select Changes */
+    document.addEventListener("input", function (e) {
+      if (e.target && e.target.id === "main-search-input") {
+        var val = e.target.value;
+        FindIt.store.saveFilters({ query: val });
+        renderRouteWithTransition(true);
+        var inputAfter = document.getElementById("main-search-input");
+        if (inputAfter) {
+          inputAfter.focus();
+          try { inputAfter.setSelectionRange(val.length, val.length); } catch (err) {}
+        }
+      }
+    });
+
+    document.addEventListener("change", function (e) {
+      var t = e.target;
+      if (!t) return;
+      if (t.id === "filter-max-price") {
+        FindIt.store.saveFilters({ maxPrice: Number(t.value) || 600000 });
+        renderRouteWithTransition(false);
+        return;
+      }
+      if (t.id === "filter-min-rating") {
+        FindIt.store.saveFilters({ minRating: Number(t.value) || 0 });
+        renderRouteWithTransition(false);
+        return;
+      }
+      if (t.classList.contains("js-setting-toggle")) {
+        var key = t.getAttribute("data-setting");
+        var u = FindIt.store.getUser();
+        var notif = Object.assign({}, u.notifications || {});
+        notif[key] = t.checked;
+        FindIt.store.updateUser({ notifications: notif });
+        FindIt.ui.showToast("Bildirishnoma sozlamasi saqlandi");
+        return;
+      }
+      if (t.classList.contains("js-video-autoplay")) {
+        var u2 = FindIt.store.getUser();
+        var vd = Object.assign({}, u2.videoDefaults || {}, { autoplayPreview: t.checked });
+        FindIt.store.updateUser({ videoDefaults: vd });
+        FindIt.ui.showToast("Video auto-play sozlamasi saqlandi");
+        return;
+      }
+      if (t.id === "vid-quality") {
+        var u3 = FindIt.store.getUser();
+        var vd2 = Object.assign({}, u3.videoDefaults || {}, { defaultQuality: t.value });
+        FindIt.store.updateUser({ videoDefaults: vd2 });
+        FindIt.ui.showToast("Standart video sifati: " + t.value);
+      }
+    });
+
+    /* Form Submissions */
+    document.addEventListener("submit", function (e) {
+      var form = e.target;
+      if (!form) return;
+
+      /* Point 1 & 2: Login Gate Submit -> Disappears and sends user to Main Menu */
+      if (form.id === "login-gate-form") {
+        e.preventDefault();
+        var fd = new FormData(form);
+        var role = fd.get("role") || "student";
+        var updatedUser = FindIt.store.updateUser({
+          hasCompletedLogin: true,
+          role: role,
+          email: String(fd.get("email") || "").trim(),
+          name: String(fd.get("username") || "").trim(),
+          handle: String(fd.get("username") || "user").trim().toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+          major: String(fd.get("major") || "Computer Science").trim(),
+          subjectCert: String(fd.get("subjectCert") || "IELTS Academic 8.0+").trim(),
+          honors: String(fd.get("honors") || "Verified Teacher").trim(),
+          pastStudentsResult: String(fd.get("pastStudentsResult") || "94% scored A+ in 2026").trim(),
+          paymentCard: String(fd.get("paymentCard") || "8600 •••• •••• 7814").trim(),
+          coursePrice: Number(fd.get("coursePrice")) || 420000
+        });
+
+        if (role === "teacher") {
+          FindIt.store.registerOrUpdateTeacherCourse(updatedUser);
+        }
+
+        var gate = document.getElementById("login-gate-overlay");
+        if (gate) gate.classList.add("is-hidden");
+
+        FindIt.ui.updateSidebarFolderAndCounts();
+        navigateTo("#/", false);
+        FindIt.ui.showToast("Xush kelibsiz, " + updatedUser.name + "!");
+        return;
+      }
+
+      /* Checkout / Apply Form Submit -> Adds course to Folder-Explorer Sub-themes */
+      if (form.id === "checkout-demo-form") {
+        e.preventDefault();
+        var courseId = form.getAttribute("data-course-id");
+        var adapterInput = form.querySelector("input[name='paymentAdapter']:checked");
+        var adapter = adapterInput ? adapterInput.value : "Payme";
+        FindIt.store.applyForCourse(courseId, adapter);
+        FindIt.ui.closeAllDrawers();
+        FindIt.ui.updateSidebarFolderAndCounts();
+        var cObj = FindIt.store.getCourseBySlugOrId(courseId);
+        FindIt.ui.showToast("Kursga muvaffaqiyatli yozildingiz! 'Courses' papkasiga qo'shildi.");
+        if (cObj) {
+          navigateTo("#/courses/" + cObj.slug, false);
+        } else {
+          renderRouteWithTransition(true);
+        }
+        return;
+      }
+
+      /* Studio Review Reply Form */
+      if (form.classList.contains("js-studio-reply-form")) {
+        e.preventDefault();
+        var rId = form.getAttribute("data-review-id");
+        var inp = form.querySelector("input");
+        if (inp && inp.value.trim()) {
+          FindIt.store.replyToReview(rId, inp.value.trim());
+          renderRouteWithTransition(true);
+          FindIt.ui.showToast("Javobingiz saqlandi!");
+        }
+      }
+    });
+  }
+
+  function init() {
+    FindIt.store.initSeed();
+    var user = FindIt.store.getUser();
+    applyTheme(user.theme || "light");
+    FindIt.i18n.setLang(FindIt.i18n.getLang());
+    syncAllI18nStrings();
+    setLoginGateRole(user.role || "student");
+
+    var gate = document.getElementById("login-gate-overlay");
+    if (gate) {
+      if (user.hasCompletedLogin) {
+        gate.classList.add("is-hidden");
+      } else {
+        gate.classList.remove("is-hidden");
+      }
+    }
+
+    bindEvents();
+    renderRouteWithTransition(true);
+  }
+
+  FindIt.router = {
+    getActiveHash: getActiveHash,
+    navigateTo: navigateTo,
+    renderRouteWithTransition: renderRouteWithTransition
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})(window);
+</script>
+</body>
+</html>
